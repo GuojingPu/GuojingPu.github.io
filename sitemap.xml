@@ -2,37 +2,72 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://puguojing.com/python/index.html</loc>
+    <loc>http://puguojing.com/2018/09/09/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%E6%A0%B7%E5%BC%8F%E8%AE%BE%E7%BD%AE%E5%8F%8A%E9%83%A8%E7%BD%B2/</loc>
     
-    <lastmod>2018-11-05T15:52:32.570Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://puguojing.com/2018/09/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
-    
-    <lastmod>2018-11-05T15:50:52.394Z</lastmod>
+    <lastmod>2018-11-05T17:23:57.137Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://puguojing.com/2018/07/20/%20Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
+    <loc>http://puguojing.com/2018/08/27/BeautifulSoup%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
     
-    <lastmod>2018-11-05T15:49:04.702Z</lastmod>
+    <lastmod>2018-11-05T17:20:15.781Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://puguojing.com/2018/09/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
+    <loc>http://puguojing.com/2018/08/23/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89/</loc>
     
-    <lastmod>2018-11-05T15:44:27.505Z</lastmod>
+    <lastmod>2018-11-05T16:20:12.119Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://puguojing.com/2018/09/29/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/</loc>
+    
+    <lastmod>2018-11-05T16:18:53.470Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://puguojing.com/2018/09/29/virtualenv%E5%92%8Cvirtualenvwrapper%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    
+    <lastmod>2018-11-05T16:18:10.053Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://puguojing.com/2018/09/15/%E7%94%9F%E6%88%90%E5%99%A8/</loc>
     
-    <lastmod>2018-11-05T13:59:37.564Z</lastmod>
+    <lastmod>2018-11-05T16:11:42.644Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://puguojing.com/2018/09/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
+    
+    <lastmod>2018-11-05T16:10:38.235Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://puguojing.com/2018/09/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    
+    <lastmod>2018-11-05T16:10:02.549Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://puguojing.com/2018/07/20/%20Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
+    
+    <lastmod>2018-11-05T16:09:35.572Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://puguojing.com/python/index.html</loc>
+    
+    <lastmod>2018-11-05T15:56:14.070Z</lastmod>
     
   </url>
   
@@ -149,51 +184,9 @@
   </url>
   
   <url>
-    <loc>http://puguojing.com/2018/08/23/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E5%8F%8A%E6%B3%A8%E5%86%8C/</loc>
-    
-    <lastmod>2018-11-05T13:59:37.530Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://puguojing.com/2018/09/29/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE/</loc>
-    
-    <lastmod>2018-11-05T13:59:37.529Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://puguojing.com/2018/09/29/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
-    
-    <lastmod>2018-11-05T13:59:37.527Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://puguojing.com/2018/08/23/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%E6%A0%B7%E5%BC%8F%E8%AE%BE%E7%BD%AE%E5%8F%8A%E9%83%A8%E7%BD%B2/</loc>
-    
-    <lastmod>2018-11-05T13:59:37.523Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://puguojing.com/2018/08/27/BeautifulSoup%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
-    
-    <lastmod>2018-11-05T13:59:37.520Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://puguojing.com/2018/08/23/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%A5%E9%97%A8%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</loc>
     
     <lastmod>2018-11-05T13:59:37.518Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://puguojing.com/2018/07/20/AboutMe/</loc>
-    
-    <lastmod>2018-11-05T13:59:37.515Z</lastmod>
     
   </url>
   

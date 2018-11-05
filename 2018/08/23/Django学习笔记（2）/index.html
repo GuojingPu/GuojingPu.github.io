@@ -31,7 +31,7 @@
     <!--Title-->
 
 
-<title>AboutMe | 心小天个人博客</title>
+<title>Django学习笔记（二）-用户登录及注册 | 心小天个人博客</title>
 
 
     <link rel="alternate" href="/atom.xml" title="心小天个人博客" type="application/atom+xml">
@@ -136,9 +136,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="AboutMe">
+        <h1 id="Django学习笔记（二）-用户登录及注册">
             
-	            AboutMe
+	            Django学习笔记（二）-用户登录及注册
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        <a href="/categories/ ">
-             
+        <a href="/categories/Django">
+            Django
         </a>
     </span>
     
@@ -158,6 +158,14 @@
         <span class="tags-meta">
             
                 
+                    <a href="/tags/Web框架" title="Web框架">
+                        Web框架
+                    </a>
+                
+                    <a href="/tags/Django" title="Django">
+                        Django
+                    </a>
+                
             
         </span>
     </span>
@@ -167,7 +175,7 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2018/07/20</span>
+            <span class="date-meta">2018/08/23</span>
         </span>
         
     
@@ -178,7 +186,22 @@
     </div>
     
     <div class="post-body post-content">
-        
+        <p>&#8195;&#8195;</p>
+<h3 id="用户账户"><a href="#用户账户" class="headerlink" title="用户账户"></a>用户账户</h3><hr>
+<blockquote>
+<p>此处只记录在项目中，制作登录功能时遇到的问题以及解决方法。</p>
+</blockquote>
+<h4 id="3-创建用户账户"><a href="#3-创建用户账户" class="headerlink" title="3. 创建用户账户"></a>3. 创建用户账户</h4><hr>
+<h5 id="3-2-登陆页面"><a href="#3-2-登陆页面" class="headerlink" title="3.2 登陆页面"></a>3.2 登陆页面</h5><hr>
+<p>此处与书中不同，书中使用Django提供的默认登陆视图，而此处则是自己实现login登录视图。在users中的urls.py中添加如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    # 登陆页面</span><br><span class="line">    #path(&quot;login/&quot;, login, &#123;&quot;template_name&quot;: &quot;users/login.html&quot;&#125;, name=&quot;login&quot;),</span><br><span class="line">    path(&apos;login/&apos;, views.login_view,name=&quot;login&quot;),</span><br><span class="line">    path(&quot;logout/&quot;, views.logout_view, name=&quot;logout&quot;),</span><br><span class="line">    path(&quot;register/&quot;, views.register, name=&quot;register&quot;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>原文中使用views中自带的login，但是我的Django版本是2.1。views中没有login，于是自己在view中实现login。<br>views.PY代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">from django.shortcuts import render, redirect, reverse</span><br><span class="line">from django.contrib.auth import	authenticate,login,logout</span><br><span class="line">from django.http import HttpResponseRedirect</span><br><span class="line">from django.contrib.auth.forms import UserCreationForm</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def login_view(request):</span><br><span class="line">    if request.method == &apos;GET&apos;:</span><br><span class="line">        return render(request, &apos;users/login.html&apos;)</span><br><span class="line"></span><br><span class="line">    username = request.POST.get(&apos;username&apos;, &apos;&apos;)</span><br><span class="line">    password = request.POST.get(&apos;password&apos;, &apos;&apos;)</span><br><span class="line"></span><br><span class="line">    user = authenticate(request, username=username, password=password)</span><br><span class="line">    if user is not None:</span><br><span class="line">        login(request, user)</span><br><span class="line">        return redirect(reverse(&apos;learning_logs:index&apos;))</span><br><span class="line">    else:</span><br><span class="line">        return render(request, &apos;users/login.html&apos;, &#123;</span><br><span class="line">            &apos;username&apos;: username,</span><br><span class="line">            &apos;password&apos;: password,</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+<p>login.html如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;% extends &quot;learning_logs/base.html&quot; %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block content %&#125;</span><br><span class="line"></span><br><span class="line">    &lt;form action=&quot;&#123;% url &apos;users:login&apos; %&#125;&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    </span><br><span class="line">        &#123;% csrf_token %&#125;</span><br><span class="line">        &#123;&#123; form.as_p &#125;&#125;</span><br><span class="line">    </span><br><span class="line">        &lt;input type=&quot;text&quot; id=&quot;username&quot; name=&quot;username&quot; value=&quot;&#123;&#123; username &#125;&#125;&quot; class=&quot;form-control&quot; placeholder=&quot;用户名&quot; required autofocus&gt;</span><br><span class="line"></span><br><span class="line">        &lt;input type=&quot;password&quot; id=&quot;password&quot; name=&quot;password&quot; value=&quot;&#123;&#123; password &#125;&#125;&quot; class=&quot;form-control&quot; placeholder=&quot;密码&quot; required&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;button type=&quot;submit&quot;&gt;登录&lt;/button&gt;</span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+<p>此处登录界面完成。</p>
+<p>其它内容请参考:<a href="https://segmentfault.com/a/1190000015098802" target="_blank" rel="noopener">原文链接</a></p>
+
     </div>
     
         <div class="reward">
@@ -211,15 +234,15 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/07/22/python学习-面向对象/" class="pre-post btn btn-default" title="Python学习笔记-面向对象">
+        <a href="/2018/08/26/python爬虫-爬取豆瓣书籍（一）/" class="pre-post btn btn-default" title="python爬虫-爬取豆瓣书籍（一）">
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">Python学习笔记-面向对象</span>
+            <span class="hidden-xs">python爬虫-爬取豆瓣书籍（一）</span>
         </a>
     
     
-        <a href="/2018/07/20/ Python学习笔记-正则表达式/" class="next-post btn btn-default" title="Python学习笔记-正则表达式">
+        <a href="/2018/08/23/Django学习笔记（一）入门介绍及基本使用/" class="next-post btn btn-default" title="Django学习笔记（一）-入门介绍及基本使用">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">Python学习笔记-正则表达式</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">Django学习笔记（一）-入门介绍及基本使用</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -262,7 +285,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#用户账户"><span class="toc-text">用户账户</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-创建用户账户"><span class="toc-text">3. 创建用户账户</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-登陆页面"><span class="toc-text">3.2 登陆页面</span></a></li></ol></li></ol></li></ol>
         
     </div>
 </aside>
