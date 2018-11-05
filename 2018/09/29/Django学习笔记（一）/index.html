@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="zh-Hans">
+<html lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
     <!--Setting-->
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="蒲国敬博客">
+    <meta name="apple-mobile-web-app-capable" content="心小天个人博客">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
     <meta name="browsermode" content="application">
@@ -20,7 +20,7 @@
 
 
 
-<meta name="keywords" content="蒲国敬">
+<meta name="keywords" content="心小天">
 
 
 
@@ -31,10 +31,10 @@
     <!--Title-->
 
 
-<title>Django学习笔记（一） | 蒲国敬博客</title>
+<title>Django学习笔记（一） | 心小天个人博客</title>
 
 
-    <link rel="alternate" href="/atom.xml" title="蒲国敬博客" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="心小天个人博客" type="application/atom+xml">
 
 
     <link rel="icon" href="/favicon.ico">
@@ -79,7 +79,7 @@
 <body>
     <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
     <div class="main-header-box">
-        <a class="header-avatar" href="/" title="蒲国敬">
+        <a class="header-avatar" href="/" title="心小天">
             <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
         </a>
         <div class="branding">
@@ -98,7 +98,7 @@
                     <span class="sr-only"></span>
                         <i class="fa fa-bars"></i>
                     </span>
-                    <a class="navbar-brand" href="http://puguojing.com">蒲国敬博客</a>
+                    <a class="navbar-brand" href="http://puguojing.com">心小天个人博客</a>
                 </div>
                 <div class="collapse navbar-collapse" id="main-menu">
                     <ul class="menu">
@@ -108,15 +108,15 @@
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/前端/"><i class="fa "></i>前端</a>
+                                <a href="/categories/"><i class="fa "></i>前端</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/后端/"><i class="fa "></i>后端</a>
+                                <a href="/categories/"><i class="fa "></i>后端</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                                <a href="/categories/"><i class="fa "></i>工具</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
@@ -270,7 +270,7 @@
             meta: 'nick,mail'.split(','),
             pageSize: '10',
             path: window.location.pathname,
-            lang: 'zh-Hans'.toLowerCase()
+            lang: 'zh-CN'.toLowerCase()
         })
     </script>
 
@@ -285,7 +285,7 @@
                 
                     <aside id="article-toc" role="navigation" class="col-md-4">
     <div class="widget">
-        <h3 class="title">Table of Contents</h3>
+        <h3 class="title">文章目录</h3>
         
             <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-virtualenv虚拟环境的使用"><span class="toc-text">1.virtualenv虚拟环境的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-安装虚拟环境："><span class="toc-text">1.安装虚拟环境：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-创建虚拟环境"><span class="toc-text">2.创建虚拟环境</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-进入虚拟环境"><span class="toc-text">3.进入虚拟环境</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-退出虚拟环境"><span class="toc-text">4.退出虚拟环境</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-创建虚拟环境的时候指定Python解释器："><span class="toc-text">5.创建虚拟环境的时候指定Python解释器：</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#建议使用-virtualenvwrapper"><span class="toc-text">建议使用 virtualenvwrapper</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-安装"><span class="toc-text">1.安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-创建虚拟环境"><span class="toc-text">1.创建虚拟环境</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-切换到虚拟环境"><span class="toc-text">2.切换到虚拟环境</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#退出当前虚拟环境"><span class="toc-text">退出当前虚拟环境</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-删除某个虚拟环境"><span class="toc-text">3.删除某个虚拟环境</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-列出所有虚拟环境"><span class="toc-text">4.列出所有虚拟环境</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-进入某个虚拟环境"><span class="toc-text">5.进入某个虚拟环境</span></a></li></ol></li>
         

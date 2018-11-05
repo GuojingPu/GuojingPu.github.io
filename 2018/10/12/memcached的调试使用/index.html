@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="zh-Hans">
+<html lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
     <!--Setting-->
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="蒲国敬博客">
+    <meta name="apple-mobile-web-app-capable" content="心小天个人博客">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
     <meta name="browsermode" content="application">
@@ -20,7 +20,7 @@
 
 
 
-<meta name="keywords" content="蒲国敬">
+<meta name="keywords" content="心小天">
 
 
 
@@ -31,10 +31,10 @@
     <!--Title-->
 
 
-<title>memcached的调试使用 | 蒲国敬博客</title>
+<title>memcached的调试使用 | 心小天个人博客</title>
 
 
-    <link rel="alternate" href="/atom.xml" title="蒲国敬博客" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="心小天个人博客" type="application/atom+xml">
 
 
     <link rel="icon" href="/favicon.ico">
@@ -79,7 +79,7 @@
 <body>
     <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
     <div class="main-header-box">
-        <a class="header-avatar" href="/" title="蒲国敬">
+        <a class="header-avatar" href="/" title="心小天">
             <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
         </a>
         <div class="branding">
@@ -98,7 +98,7 @@
                     <span class="sr-only"></span>
                         <i class="fa fa-bars"></i>
                     </span>
-                    <a class="navbar-brand" href="http://puguojing.com">蒲国敬博客</a>
+                    <a class="navbar-brand" href="http://puguojing.com">心小天个人博客</a>
                 </div>
                 <div class="collapse navbar-collapse" id="main-menu">
                     <ul class="menu">
@@ -108,15 +108,15 @@
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/前端/"><i class="fa "></i>前端</a>
+                                <a href="/categories/"><i class="fa "></i>前端</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/后端/"><i class="fa "></i>后端</a>
+                                <a href="/categories/"><i class="fa "></i>后端</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                                <a href="/categories/"><i class="fa "></i>工具</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
@@ -264,7 +264,7 @@
             meta: 'nick,mail'.split(','),
             pageSize: '10',
             path: window.location.pathname,
-            lang: 'zh-Hans'.toLowerCase()
+            lang: 'zh-CN'.toLowerCase()
         })
     </script>
 
@@ -279,7 +279,7 @@
                 
                     <aside id="article-toc" role="navigation" class="col-md-4">
     <div class="widget">
-        <h3 class="title">Table of Contents</h3>
+        <h3 class="title">文章目录</h3>
         
             <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mac-memcached的调试"><span class="toc-text">Mac memcached的调试</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-安装："><span class="toc-text">1.安装：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-启动："><span class="toc-text">2.启动：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-Telnet连接"><span class="toc-text">3.Telnet连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#telnet操作memcached"><span class="toc-text">telnet操作memcached:</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-set：添加或更新数据："><span class="toc-text">1.set：添加或更新数据：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-add：添加数据"><span class="toc-text">2.add：添加数据</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-get：获取数据"><span class="toc-text">3.get：获取数据</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-delete-删除数据"><span class="toc-text">4.delete:删除数据</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#5-flush-all：删除memcached中的所有数据。"><span class="toc-text">5.flush_all：删除memcached中的所有数据。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#6-incr-给memcached中数字类型的值进行相加操作，相加的项必须也是数字类型。"><span class="toc-text">6.incr:给memcached中数字类型的值进行相加操作，相加的项必须也是数字类型。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#7-decr-给memcached中数字类型的值进行减操作，相减的项必须也是数字类型。"><span class="toc-text">7.decr:给memcached中数字类型的值进行减操作，相减的项必须也是数字类型。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#8-stats：查看memcached的当前状态，可以查看自己的操作记录和正确执行数据，以分析memcached的命中率（正确率）"><span class="toc-text">8.stats：查看memcached的当前状态，可以查看自己的操作记录和正确执行数据，以分析memcached的命中率（正确率）</span></a></li></ol></li></ol></li></ol>
         
