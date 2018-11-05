@@ -1,0 +1,339 @@
+<!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="蒲国敬博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://puguojing.com">
+    <!--SEO-->
+
+<meta name="description" content="生活不止coding,还有诗和远方。">
+
+
+
+<meta name="keywords" content="蒲国敬">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>sql语句中left join、right join 以及innerjoin之间的使用与区别 | 蒲国敬博客</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="蒲国敬博客" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="蒲国敬">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://puguojing.com">蒲国敬博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/前端/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/后端/"><i class="fa "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="sql语句中left join、right join 以及innerjoin之间的使用与区别">
+            
+	            sql语句中left join、right join 以及innerjoin之间的使用与区别
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/10/08</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="sql语句中left-join、right-join-以及innerjoin之间的使用与区别"><a href="#sql语句中left-join、right-join-以及innerjoin之间的使用与区别" class="headerlink" title="sql语句中left join、right join 以及innerjoin之间的使用与区别"></a>sql语句中left join、right join 以及innerjoin之间的使用与区别</h3><p>left [outer] join(左联接) 返回包括左表中的所有记录和右表中联结字段相等的记录<br>right [outer] join(右联接) 返回包括右表中的所有记录和左表中联结字段相等的记录<br>inner join(等值连接) 只返回两个表中联结字段相等的行</p>
+<p>左联接和右联接统称为外联接，其中的outer关键字可以省略。</p>
+<p>左连接和右连接的区别在于以哪个表为主（主表中的数据都会出现在表中）</p>
+<h3 id="举例如下："><a href="#举例如下：" class="headerlink" title="举例如下："></a>举例如下：</h3><hr>
+<p>表A记录如下：<br>aID　　　　　aNum<br>1　　　　　a20050111<br>2　　　　　a20050112<br>3　　　　　a20050113<br>4　　　　　a20050114<br>5　　　　　a20050115</p>
+<p>表B记录如下:<br>bID　　　　　bName<br>1　　　　　2006032401<br>2　　　　　2006032402<br>3　　　　　2006032403<br>4　　　　　2006032404<br>8　　　　　2006032408</p>
+<hr>
+<p>1.left join<br>sql语句如下:<br>select * from A<br>left join B<br>on A.aID = B.bID</p>
+<p>结果如下:<br>aID　　　　　aNum　　　　　bID　　　　　bName<br>1　　　　　a20050111　　　　1　　　　　2006032401<br>2　　　　　a20050112　　　　2　　　　　2006032402<br>3　　　　　a20050113　　　　3　　　　　2006032403<br>4　　　　　a20050114　　　　4　　　　　2006032404<br>5　　　　　a20050115　　　　NULL　　　　　NULL</p>
+<p>（所影响的行数为 5 行）<br>结果说明:<br>left join是以A表的记录为基础的,A可以看成左表,B可以看成右表,left join是以左表为准的.<br>换句话说,左表(A)的记录将会全部表示出来,而右表(B)只会显示符合搜索条件的记录(例子中为: A.aID = B.bID).</p>
+<h2 id="B表记录不足的地方均为NULL"><a href="#B表记录不足的地方均为NULL" class="headerlink" title="B表记录不足的地方均为NULL."></a>B表记录不足的地方均为NULL.</h2><p>2.right join<br>sql语句如下:<br>select * from A<br>right join B<br>on A.aID = B.bID</p>
+<p>结果如下:<br>aID　　　　　aNum　　　　　bID　　　　　bName<br>1　　　　　a20050111　　　　1　　　　　2006032401<br>2　　　　　a20050112　　　　2　　　　　2006032402<br>3　　　　　a20050113　　　　3　　　　　2006032403<br>4　　　　　a20050114　　　　4　　　　　2006032404<br>NULL　　　　　NULL　　　　　8　　　　　2006032408</p>
+<p>（所影响的行数为 5 行）<br>结果说明:</p>
+<h2 id="仔细观察一下-就会发现-和left-join的结果刚好相反-这次是以右表-B-为基础的-A表不足的地方用NULL填充"><a href="#仔细观察一下-就会发现-和left-join的结果刚好相反-这次是以右表-B-为基础的-A表不足的地方用NULL填充" class="headerlink" title="仔细观察一下,就会发现,和left join的结果刚好相反,这次是以右表(B)为基础的,A表不足的地方用NULL填充."></a>仔细观察一下,就会发现,和left join的结果刚好相反,这次是以右表(B)为基础的,A表不足的地方用NULL填充.</h2><p>3.inner join<br>sql语句如下:<br>select * from A<br>innerjoin B<br>on A.aID = B.bID</p>
+<p>结果如下:<br>aID　　　　　aNum　　　　　bID　　　　　bName<br>1　　　　　a20050111　　　　1　　　　　2006032401<br>2　　　　　a20050112　　　　2　　　　　2006032402<br>3　　　　　a20050113　　　　3　　　　　2006032403<br>4　　　　　a20050114　　　　4　　　　　2006032404</p>
+<p>结果说明:</p>
+<h2 id="很明显-这里只显示出了-A-aID-B-bID的记录-这说明inner-join并不以谁为基础-它只显示符合条件的记录"><a href="#很明显-这里只显示出了-A-aID-B-bID的记录-这说明inner-join并不以谁为基础-它只显示符合条件的记录" class="headerlink" title="很明显,这里只显示出了 A.aID = B.bID的记录.这说明inner join并不以谁为基础,它只显示符合条件的记录."></a>很明显,这里只显示出了 A.aID = B.bID的记录.这说明inner join并不以谁为基础,它只显示符合条件的记录.</h2><p>注:<br>LEFT JOIN操作用于在任何的 FROM 子句中，组合来源表的记录。使用 LEFT JOIN 运算来创建一个左边外部联接。左边外部联接将包含了从第一个（左边）开始的两个表中的全部记录，即使在第二个（右边）表中并没有相符值的记录。</p>
+<p>语法：FROM table1 LEFT JOIN table2 ON table1.field1 compopr table2.field2</p>
+<p>说明：table1, table2参数用于指定要将记录组合的表的名称。<br>field1, field2参数指定被联接的字段的名称。且这些字段必须有相同的数据类型及包含相同类型的数据，但它们不需要有相同的名称。<br>compopr参数指定关系比较运算符：”=”， “&lt;”， “&gt;”， “&lt;=”， “&gt;=” 或 “&lt;&gt;”。<br>如果在INNER JOIN操作中要联接包含Memo 数据类型或 OLE Object 数据类型数据的字段，将会发生错误. </p>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../img/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/10/12/memcached的调试使用/" class="pre-post btn btn-default" title="memcached的调试使用">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">memcached的调试使用</span>
+        </a>
+    
+    
+        <a href="/2018/10/07/pycharm连接mysql数据库/" class="next-post btn btn-default" title="pycharm连接mysql数据库">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">pycharm连接mysql数据库</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-Hans'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">Table of Contents</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sql语句中left-join、right-join-以及innerjoin之间的使用与区别"><span class="toc-text">sql语句中left join、right join 以及innerjoin之间的使用与区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#举例如下："><span class="toc-text">举例如下：</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#B表记录不足的地方均为NULL"><span class="toc-text">B表记录不足的地方均为NULL.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#仔细观察一下-就会发现-和left-join的结果刚好相反-这次是以右表-B-为基础的-A表不足的地方用NULL填充"><span class="toc-text">仔细观察一下,就会发现,和left join的结果刚好相反,这次是以右表(B)为基础的,A表不足的地方用NULL填充.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#很明显-这里只显示出了-A-aID-B-bID的记录-这说明inner-join并不以谁为基础-它只显示符合条件的记录"><span class="toc-text">很明显,这里只显示出了 A.aID = B.bID的记录.这说明inner join并不以谁为基础,它只显示符合条件的记录.</span></a>
+        
+    </li></div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

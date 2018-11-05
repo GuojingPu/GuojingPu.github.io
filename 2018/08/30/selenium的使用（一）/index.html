@@ -1,0 +1,355 @@
+<!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="蒲国敬博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://puguojing.com">
+    <!--SEO-->
+
+<meta name="description" content="生活不止coding,还有诗和远方。">
+
+
+
+<meta name="keywords" content="蒲国敬">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>selenium的使用（一）安装及环境配置 | 蒲国敬博客</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="蒲国敬博客" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="蒲国敬">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://puguojing.com">蒲国敬博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/前端/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/后端/"><i class="fa "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="selenium的使用（一）安装及环境配置">
+            
+	            selenium的使用（一）安装及环境配置
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/python">
+            python
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/Python" title="Python">
+                        Python
+                    </a>
+                
+                    <a href="/tags/selenium" title="selenium">
+                        selenium
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/08/30</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="1-安装selenium"><a href="#1-安装selenium" class="headerlink" title="1.安装selenium"></a>1.安装selenium</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install selenium</span><br></pre></td></tr></table></figure>
+<h3 id="2-安装ChromeDriver"><a href="#2-安装ChromeDriver" class="headerlink" title="2.安装ChromeDriver"></a>2.安装ChromeDriver</h3><h4 id="2-1查看chrome版本："><a href="#2-1查看chrome版本：" class="headerlink" title="2.1查看chrome版本："></a>2.1查看chrome版本：</h4><p><img src="http://pc59bkg3l.bkt.clouddn.com/查看chrome版本.png" alt=""></p>
+<p>我的版本是68.0 64 位，所以要下载对应的ChromeDriver版本，打开如下网址：<a href="https://chromedriver.storage.googleapis.com/index.html" target="_blank" rel="noopener">https://chromedriver.storage.googleapis.com/index.html</a></p>
+<p><img src="http://pc59bkg3l.bkt.clouddn.com/22.png" alt=""></p>
+<p>下拉找到对应自己chrome版本的ChromeDriver版本，我的Chrome版本是68.0对应的ChromeDriver版本是2.40。<br><img src="http://pc59bkg3l.bkt.clouddn.com/23.png" alt="23"></p>
+<p>下面的是不同的chrome版本和对应的ChromeDriver版本对照表：第一列是ChromeDriver版本，第二列是chrome版本。</p>
+<p>v2.40 v66-68<br>v2.39    v66-68<br>v2.38    v65-67<br>v2.37    v64-66<br>v2.36    v63-65<br>v2.35    v62-64<br>v2.34    v61-63<br>v2.33    v60-62<br>v2.32    v59-61<br>v2.31    v58-60<br>v2.30    v58-60<br>v2.29    v56-58<br>v2.28    v55-57<br>v2.27    v54-56<br>v2.26    v53-55<br>v2.25    v53-55<br>v2.24    v52-54<br>v2.23    v51-53<br>v2.22    v49-52<br>v2.21    v46-50<br>v2.20    v43-48<br>v2.19    v43-47<br>v2.18    v43-46<br>v2.17    v42-43<br>v2.13    v42-45<br>v2.15    v40-43<br>v2.14    v39-42<br>v2.13    v38-41<br>v2.12    v36-40<br>v2.11    v36-40<br>v2.10    v33-36<br>v2.9    v31-34<br>v2.8    v30-33<br>v2.7    v30-33<br>v2.6    v29-32<br>v2.5    v29-32<br>v2.4    v29-32</p>
+<p>下载完成后会是一个chromedriver_mac64.zip压缩文件，解压后chromedriver是一个Unix可执行文件<br><img src="http://pc59bkg3l.bkt.clouddn.com/15356166053357.jpg" alt=""></p>
+<p>接下来就需要配置环境变量让这个可执行文件在任意目录下可执行，你可以直接把它放到<code>/usr/bin</code>等已经存在环境变量路径的目录里，也可以新添加一条自己的路径：<br>首先新建一个文件目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /usr/local/chromedriver</span><br></pre></td></tr></table></figure>
+<p>然后把‘chromedriver’这个可执行文件放到这个目录里,在‘chromedriver’这个可执行文件所在的目录下执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mv chromedriver  /usr/local/chromedriver</span><br></pre></td></tr></table></figure>
+<p>可以把文件放到该目录。</p>
+<p>接着打开配置文件添加环境变量路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ./.bash_profile</span><br></pre></td></tr></table></figure>
+<p>添加一行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=&quot;/usr/local/chromedriver:$PATH&quot;</span><br></pre></td></tr></table></figure>
+<p>然后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ./.bash_profile</span><br></pre></td></tr></table></figure>
+<p>使修改生效，然后输入：<br><code>export</code>查看修改结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~export</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">PATH=&apos;/usr/local/chromedriver:/usr/local/opt/imagemagick@6/bin:/Users/pgj/anaconda3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/aria2/bin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Applications/Wireshark.app/Contents/MacOS:/Applications/Xamarin Workbooks.app/Contents/SharedSupport/path-bin:/usr/local/mysql/bin&apos;</span><br><span class="line">PWD=/Users/pgj</span><br><span class="line">SHELL=/bin/zsh</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
+<p>发现PATH中有：<code>/usr/local/chromedriver</code>目录路径（此路径一定要和chromedriver可执行文件所放目录一致，务必注意拼写错误），说明加入到环境变量成功。<br>之后关闭命令行终端重新打开命令行终端输入：<code>chromedriver</code><br>如果控制台有如下显示输出说明配置好了:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~ chromedriver</span><br><span class="line">Starting ChromeDriver 2.40.565386 (45a059dc425e08165f9a10324bd1380cc13ca363) on port 9515</span><br><span class="line">Only local connections are allowed.</span><br></pre></td></tr></table></figure>
+<p>!!!注意该上述修改之后可能在运行代码是仍然会报：NOT FOUND chromedriver 错误，所以最好的办法就是直接把<code>chromedriver</code>可执行文件放入<code>usr/bin/</code>中。<br>其他浏览器也是同样类似的只需要下载对应的驱动文件放入<code>usr/bin/</code>中即可，比如Firefox浏览器就需要下载<code>GeckoDriver</code>，地址如下：<a href="https://github.com/mozilla/geckodriver/releases" target="_blank" rel="noopener">https://github.com/mozilla/geckodriver/releases</a></p>
+<p>由于我的MAC版本是：10.13,系统开启了Rootless内核保护机制，所以需要关闭。（mac 从10.11及之后加入了Rootless内核保护机制）<br>关闭方法参考如下链接：<a href="http://www.pc6.com/edu/86809.html" target="_blank" rel="noopener">http://www.pc6.com/edu/86809.html</a><br>1.重启电脑开后按住 Command-R 进入恢复分区. 然后在 实用工具 栏找到 终端启动运行.<br>输入:<code>csrutil disable; reboot</code><br>2.你会看到系统保护被关闭的字样并且系统自动重启. 这样你就可以修改系统级别的文件了. 　<br>3.通过<code>csrutil status</code>来查询 Rootless 保护的状态.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~ csrutil status</span><br><span class="line">System Integrity Protection status: disabled.</span><br></pre></td></tr></table></figure>
+<p>4.最后就是重新激活 Rootless的方法了. 终端内输入：<code>csrutil enable</code></p>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../img/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/08/30/selenium的使用（二）/" class="pre-post btn btn-default" title="selenium的使用（二）">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">selenium的使用（二）</span>
+        </a>
+    
+    
+        <a href="/2018/08/29/MongoDB常用接口的使用代码案例（一）/" class="next-post btn btn-default" title="MongoDB（一）">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">MongoDB（一）</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-Hans'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">Table of Contents</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-安装selenium"><span class="toc-text">1.安装selenium</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-安装ChromeDriver"><span class="toc-text">2.安装ChromeDriver</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1查看chrome版本："><span class="toc-text">2.1查看chrome版本：</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
