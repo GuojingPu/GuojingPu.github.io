@@ -108,15 +108,15 @@
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/"><i class="fa "></i>前端</a>
+                                <a href="/categories/技术"><i class="fa "></i>技术</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/"><i class="fa "></i>后端</a>
+                                <a href="/categories/随笔"><i class="fa "></i>随笔</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/"><i class="fa "></i>工具</a>
+                                <a href="/categories/工具"><i class="fa "></i>工具</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
@@ -191,9 +191,14 @@
     
     <div class="post-body post-content">
         <p>&#8195;&#8195;</p>
-<h5 id="1-不定长变量"><a href="#1-不定长变量" class="headerlink" title="1.不定长变量"></a>1.不定长变量</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def fun_1(*kargs,**kwargs):</span><br><span class="line">    print(kargs)</span><br><span class="line">    print(kwargs)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun_1(1,2,3,row = 1,colum = 2)</span><br></pre></td></tr></table></figure>
+<h5 id="1-不定长变量"><a href="#1-不定长变量" class="headerlink" title="1.不定长变量"></a>1.不定长变量</h5><p>不定长变量一般使用在参数不固定的情况下，常使用*kargs表示一系列单一值（比如元组、列表），使用**kwargs表示一系列键值对（比如字典）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def fun_1(*kargs,**kwargs):</span><br><span class="line">    print(kargs)</span><br><span class="line">    print(kwargs)</span><br></pre></td></tr></table></figure>
+<p>可以使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun_1(1,2,3,row = 1,colume = 2)</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输出结果：</span><br><span class="line">(1, 2, 3)</span><br><span class="line">&#123;&apos;row&apos;: 1, &apos;colum&apos;: 2&#125;</span><br></pre></td></tr></table></figure>
+<p>或者像这样（其实更多的情况下我们会这样用）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">my_list = [1,2,3]</span><br><span class="line">my_dict = &#123;&apos;row&apos;:1,&apos;colume&apos;:2&#125;</span><br><span class="line"></span><br><span class="line">fun_1(my_list,my_dict)</span><br></pre></td></tr></table></figure>
+<p>*kargs和**kwargs会自动把列表和字典进行拆分开来,进行传入参数。</p>
 <h5 id="2-闭包函数"><a href="#2-闭包函数" class="headerlink" title="2.闭包函数"></a>2.闭包函数</h5><p>&#8195;&#8195;函数闭包是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。（维基百科）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def fun(x,y):</span><br><span class="line">    def close_fun(a):</span><br><span class="line">        return x+y+a #可以使用x,y</span><br><span class="line">    return close_fun #返回函数对象</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var= fun(1,2)#fun(1,2)返回的是一个close_fun函数对象</span><br><span class="line">var(3)      #结果：6，相当于使用close_fun(3）</span><br></pre></td></tr></table></figure>
 <h5 id="3-装饰器函数"><a href="#3-装饰器函数" class="headerlink" title="3.装饰器函数"></a>3.装饰器函数</h5><p>&#8195;&#8195;装饰器函数就是把被装饰的函数当做参数传入一个闭包函数中，使闭包函数中的内容先执行，然后在执行被装饰函数中的内容。</p>
@@ -244,9 +249,9 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/08/23/Django学习笔记（一）入门介绍及基本使用/" class="pre-post btn btn-default" title="Django学习笔记（一）-入门介绍及基本使用">
+        <a href="/2018/08/23/项目-learning-log（1）/" class="pre-post btn btn-default" title="项目-learning-log（1）">
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">Django学习笔记（一）-入门介绍及基本使用</span>
+            <span class="hidden-xs">项目-learning-log（1）</span>
         </a>
     
     
@@ -260,27 +265,23 @@
 
     <div id="comments">
         
-    
-    <div id="vcomments" class="valine"></div>
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="/assets/valine.min.js"></script>
+	
+  <script id="dsq-count-scr" src="https://snippet.disqus.com/count.js" async></script>
 
-    <script>
-        new Valine({
-            av: AV,
-            el: '#vcomments',
-            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
-            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
-            placeholder: '说点什么吧',
-            notify: false,
-            verify: false,
-            avatar: 'mm',
-            meta: 'nick,mail'.split(','),
-            pageSize: '10',
-            path: window.location.pathname,
-            lang: 'zh-CN'.toLowerCase()
-        })
-    </script>
+
+<script type="text/javascript">
+  var disqus_config = function () {
+    this.page.url = 'http://puguojing.com/2018/08/20/python学习-闭包函数、装饰器/';
+    this.page.identifier = '2018/08/20/python学习-闭包函数、装饰器/';
+    this.page.title = 'python学习-闭包函数、装饰器';
+  };
+  var d = document, s = d.createElement('script');
+  s.src = 'https://snippet.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', '' + +new Date());
+  (d.head || d.body).appendChild(s);
+</script>
+
+
 
 
     </div>
@@ -343,6 +344,28 @@
 
 
 
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
 
 
 

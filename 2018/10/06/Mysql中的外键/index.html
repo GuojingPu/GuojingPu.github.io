@@ -108,15 +108,15 @@
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/"><i class="fa "></i>前端</a>
+                                <a href="/categories/技术"><i class="fa "></i>技术</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/"><i class="fa "></i>后端</a>
+                                <a href="/categories/随笔"><i class="fa "></i>随笔</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/"><i class="fa "></i>工具</a>
+                                <a href="/categories/工具"><i class="fa "></i>工具</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
@@ -146,8 +146,8 @@
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        <a href="/categories/ ">
-             
+        <a href="/categories/数据库">
+            数据库
         </a>
     </span>
     
@@ -157,6 +157,18 @@
         <i class="fa fa-tags"></i>
         <span class="tags-meta">
             
+                
+                    <a href="/tags/Python" title="Python">
+                        Python
+                    </a>
+                
+                    <a href="/tags/数据库" title="数据库">
+                        数据库
+                    </a>
+                
+                    <a href="/tags/MySQL" title="MySQL">
+                        MySQL
+                    </a>
                 
             
         </span>
@@ -240,15 +252,15 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/10/07/pycharm连接mysql数据库/" class="pre-post btn btn-default" title="pycharm连接mysql数据库">
+        <a href="/2018/10/07/pycharm连接mysql数据库/" class="pre-post btn btn-default" title="Pycharm连接mysql数据库">
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">pycharm连接mysql数据库</span>
+            <span class="hidden-xs">Pycharm连接mysql数据库</span>
         </a>
     
     
-        <a href="/2018/09/30/python3 与 Django 连接数据库Error loading MySQLdb module解决方案/" class="next-post btn btn-default" title="python3 与 Django 连接数据库Error loading MySQLdb module解决方案">
+        <a href="/2018/09/30/python3 与 Django 连接数据库Error loading MySQLdb module解决方案/" class="next-post btn btn-default" title="python3 与 Django 连接数据库Error loading MySQL db module解决方案">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">python3 与 Django 连接数据库Error loading MySQLdb module解决方案</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">python3 与 Django 连接数据库Error loading MySQL db module解决方案</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -256,27 +268,23 @@
 
     <div id="comments">
         
-    
-    <div id="vcomments" class="valine"></div>
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="/assets/valine.min.js"></script>
+	
+  <script id="dsq-count-scr" src="https://snippet.disqus.com/count.js" async></script>
 
-    <script>
-        new Valine({
-            av: AV,
-            el: '#vcomments',
-            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
-            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
-            placeholder: '说点什么吧',
-            notify: false,
-            verify: false,
-            avatar: 'mm',
-            meta: 'nick,mail'.split(','),
-            pageSize: '10',
-            path: window.location.pathname,
-            lang: 'zh-CN'.toLowerCase()
-        })
-    </script>
+
+<script type="text/javascript">
+  var disqus_config = function () {
+    this.page.url = 'http://puguojing.com/2018/10/06/Mysql中的外键/';
+    this.page.identifier = '2018/10/06/Mysql中的外键/';
+    this.page.title = 'Mysql中的外键';
+  };
+  var d = document, s = d.createElement('script');
+  s.src = 'https://snippet.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', '' + +new Date());
+  (d.head || d.body).appendChild(s);
+</script>
+
+
 
 
     </div>
@@ -339,6 +347,28 @@
 
 
 
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
 
 
 

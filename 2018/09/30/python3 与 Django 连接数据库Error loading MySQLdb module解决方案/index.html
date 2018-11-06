@@ -31,7 +31,7 @@
     <!--Title-->
 
 
-<title>python3 与 Django 连接数据库Error loading MySQLdb module解决方案 | 心小天个人博客</title>
+<title>python3 与 Django 连接数据库Error loading MySQL db module解决方案 | 心小天个人博客</title>
 
 
     <link rel="alternate" href="/atom.xml" title="心小天个人博客" type="application/atom+xml">
@@ -108,15 +108,15 @@
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/"><i class="fa "></i>前端</a>
+                                <a href="/categories/技术"><i class="fa "></i>技术</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/"><i class="fa "></i>后端</a>
+                                <a href="/categories/随笔"><i class="fa "></i>随笔</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/"><i class="fa "></i>工具</a>
+                                <a href="/categories/工具"><i class="fa "></i>工具</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
@@ -136,9 +136,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="python3 与 Django 连接数据库Error loading MySQLdb module解决方案">
+        <h1 id="python3 与 Django 连接数据库Error loading MySQL db module解决方案">
             
-	            python3 与 Django 连接数据库Error loading MySQLdb module解决方案
+	            python3 与 Django 连接数据库Error loading MySQL db module解决方案
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        <a href="/categories/python">
-            python
+        <a href="/categories/数据库">
+            数据库
         </a>
     </span>
     
@@ -158,16 +158,16 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/Djiango" title="Djiango">
-                        Djiango
+                    <a href="/tags/Python" title="Python">
+                        Python
                     </a>
                 
-                    <a href="/tags/Python3" title="Python3">
-                        Python3
+                    <a href="/tags/MySQL" title="MySQL">
+                        MySQL
                     </a>
                 
-                    <a href="/tags/mysql" title="mysql">
-                        mysql
+                    <a href="/tags/Django" title="Django">
+                        Django
                     </a>
                 
             
@@ -190,7 +190,7 @@
     </div>
     
     <div class="post-body post-content">
-        <p>学习django时候，采用MySQL作为后台数据库，在执行<code>python3 manage.py startapp appname</code>创建app时遇到如下问题:</p>
+        <p>学习Django时候，采用MySQL作为后台数据库，在执行<br><code>python3 manage.py startapp appname</code><br>创建app时遇到如下问题:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">django.core.exceptions.ImproperlyConfigured: Error loading MySQLdb module.</span><br><span class="line">Did you install mysqlclient?</span><br></pre></td></tr></table></figure>
 <p>完整报错如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/db/backends/mysql/base.py&quot;, line 15, in &lt;module&gt;</span><br><span class="line">    import MySQLdb as Database</span><br><span class="line">ModuleNotFoundError: No module named &apos;MySQLdb&apos;</span><br><span class="line"></span><br><span class="line">The above exception was the direct cause of the following exception:</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;manage.py&quot;, line 15, in &lt;module&gt;</span><br><span class="line">    execute_from_command_line(sys.argv)</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/core/management/__init__.py&quot;, line 381, in execute_from_command_line</span><br><span class="line">    utility.execute()</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/core/management/__init__.py&quot;, line 357, in execute</span><br><span class="line">    django.setup()</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/__init__.py&quot;, line 24, in setup</span><br><span class="line">    apps.populate(settings.INSTALLED_APPS)</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/apps/registry.py&quot;, line 112, in populate</span><br><span class="line">    app_config.import_models()</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/apps/config.py&quot;, line 198, in import_models</span><br><span class="line">    self.models_module = import_module(models_module_name)</span><br><span class="line">  File &quot;/usr/local/Cellar/python3/3.6.3/Frameworks/Python.framework/Versions/3.6/lib/python3.6/importlib/__init__.py&quot;, line 126, in import_module</span><br><span class="line">    return _bootstrap._gcd_import(name[level:], package, level)</span><br><span class="line">  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 994, in _gcd_import</span><br><span class="line">  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 971, in _find_and_load</span><br><span class="line">  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 955, in _find_and_load_unlocked</span><br><span class="line">  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 665, in _load_unlocked</span><br><span class="line">  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 678, in exec_module</span><br><span class="line">  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/contrib/auth/models.py&quot;, line 2, in &lt;module&gt;</span><br><span class="line">    from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/contrib/auth/base_user.py&quot;, line 47, in &lt;module&gt;</span><br><span class="line">    class AbstractBaseUser(models.Model):</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/db/models/base.py&quot;, line 101, in __new__</span><br><span class="line">    new_class.add_to_class(&apos;_meta&apos;, Options(meta, app_label))</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/db/models/base.py&quot;, line 304, in add_to_class</span><br><span class="line">    value.contribute_to_class(cls, name)</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/db/models/options.py&quot;, line 203, in contribute_to_class</span><br><span class="line">    self.db_table = truncate_name(self.db_table, connection.ops.max_name_length())</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/db/__init__.py&quot;, line 33, in __getattr__</span><br><span class="line">    return getattr(connections[DEFAULT_DB_ALIAS], item)</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/db/utils.py&quot;, line 202, in __getitem__</span><br><span class="line">    backend = load_backend(db[&apos;ENGINE&apos;])</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/db/utils.py&quot;, line 110, in load_backend</span><br><span class="line">    return import_module(&apos;%s.base&apos; % backend_name)</span><br><span class="line">  File &quot;/usr/local/Cellar/python3/3.6.3/Frameworks/Python.framework/Versions/3.6/lib/python3.6/importlib/__init__.py&quot;, line 126, in import_module</span><br><span class="line">    return _bootstrap._gcd_import(name[level:], package, level)</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/site-packages/django/db/backends/mysql/base.py&quot;, line 20, in &lt;module&gt;</span><br><span class="line">    ) from err</span><br><span class="line">django.core.exceptions.ImproperlyConfigured: Error loading MySQLdb module.</span><br><span class="line">Did you install mysqlclient?</span><br></pre></td></tr></table></figure>
@@ -240,9 +240,9 @@
         </a>
     
     
-        <a href="/2018/09/29/Django学习笔记（1）/" class="next-post btn btn-default" title="Django学习笔记（1）">
+        <a href="/2018/09/29/virtualenv和virtualenvwrapper的使用/" class="next-post btn btn-default" title="虚拟环境virtualenv和virtualenvwrapper的使用">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">Django学习笔记（1）</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">虚拟环境virtualenv和virtualenvwrapper的使用</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -250,27 +250,23 @@
 
     <div id="comments">
         
-    
-    <div id="vcomments" class="valine"></div>
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="/assets/valine.min.js"></script>
+	
+  <script id="dsq-count-scr" src="https://snippet.disqus.com/count.js" async></script>
 
-    <script>
-        new Valine({
-            av: AV,
-            el: '#vcomments',
-            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
-            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
-            placeholder: '说点什么吧',
-            notify: false,
-            verify: false,
-            avatar: 'mm',
-            meta: 'nick,mail'.split(','),
-            pageSize: '10',
-            path: window.location.pathname,
-            lang: 'zh-CN'.toLowerCase()
-        })
-    </script>
+
+<script type="text/javascript">
+  var disqus_config = function () {
+    this.page.url = 'http://puguojing.com/2018/09/30/python3 与 Django 连接数据库Error loading MySQLdb module解决方案/';
+    this.page.identifier = '2018/09/30/python3 与 Django 连接数据库Error loading MySQLdb module解决方案/';
+    this.page.title = 'python3 与 Django 连接数据库Error loading MySQL db module解决方案';
+  };
+  var d = document, s = d.createElement('script');
+  s.src = 'https://snippet.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', '' + +new Date());
+  (d.head || d.body).appendChild(s);
+</script>
+
+
 
 
     </div>
@@ -333,6 +329,28 @@
 
 
 
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
 
 
 

@@ -31,7 +31,7 @@
     <!--Title-->
 
 
-<title>sql语句中left join、right join 以及innerjoin之间的使用与区别 | 心小天个人博客</title>
+<title>MySQL中的left join、right join 以及inner join之间的区别 | 心小天个人博客</title>
 
 
     <link rel="alternate" href="/atom.xml" title="心小天个人博客" type="application/atom+xml">
@@ -108,15 +108,15 @@
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/"><i class="fa "></i>前端</a>
+                                <a href="/categories/技术"><i class="fa "></i>技术</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/"><i class="fa "></i>后端</a>
+                                <a href="/categories/随笔"><i class="fa "></i>随笔</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/"><i class="fa "></i>工具</a>
+                                <a href="/categories/工具"><i class="fa "></i>工具</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
@@ -136,9 +136,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="sql语句中left join、right join 以及innerjoin之间的使用与区别">
+        <h1 id="MySQL中的left join、right join 以及inner join之间的区别">
             
-	            sql语句中left join、right join 以及innerjoin之间的使用与区别
+	            MySQL中的left join、right join 以及inner join之间的区别
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        <a href="/categories/ ">
-             
+        <a href="/categories/数据库">
+            数据库
         </a>
     </span>
     
@@ -157,6 +157,18 @@
         <i class="fa fa-tags"></i>
         <span class="tags-meta">
             
+                
+                    <a href="/tags/Python" title="Python">
+                        Python
+                    </a>
+                
+                    <a href="/tags/数据库" title="数据库">
+                        数据库
+                    </a>
+                
+                    <a href="/tags/MySQL" title="MySQL">
+                        MySQL
+                    </a>
                 
             
         </span>
@@ -178,25 +190,42 @@
     </div>
     
     <div class="post-body post-content">
-        <h3 id="sql语句中left-join、right-join-以及innerjoin之间的使用与区别"><a href="#sql语句中left-join、right-join-以及innerjoin之间的使用与区别" class="headerlink" title="sql语句中left join、right join 以及innerjoin之间的使用与区别"></a>sql语句中left join、right join 以及innerjoin之间的使用与区别</h3><p>left [outer] join(左联接) 返回包括左表中的所有记录和右表中联结字段相等的记录<br>right [outer] join(右联接) 返回包括右表中的所有记录和左表中联结字段相等的记录<br>inner join(等值连接) 只返回两个表中联结字段相等的行</p>
+        <h3 id="sql语句中left-join、right-join-以及inner-join之间的区别"><a href="#sql语句中left-join、right-join-以及inner-join之间的区别" class="headerlink" title="sql语句中left join、right join 以及inner join之间的区别"></a>sql语句中left join、right join 以及inner join之间的区别</h3><p>left [outer] join(左联接)： 返回包括左表中的所有记录和右表中联结字段相等的记录 。<br>right [outer] join(右联接) ：返回包括右表中的所有记录和左表中联结字段相等的记录。<br>inner join(等值连接) ：只返回两个表中联结字段相等的行。</p>
+<blockquote>
 <p>左联接和右联接统称为外联接，其中的outer关键字可以省略。</p>
+</blockquote>
+<blockquote>
 <p>左连接和右连接的区别在于以哪个表为主（主表中的数据都会出现在表中）</p>
-<h3 id="举例如下："><a href="#举例如下：" class="headerlink" title="举例如下："></a>举例如下：</h3><hr>
-<p>表A记录如下：<br>aID　　　　　aNum<br>1　　　　　a20050111<br>2　　　　　a20050112<br>3　　　　　a20050113<br>4　　　　　a20050114<br>5　　　　　a20050115</p>
-<p>表B记录如下:<br>bID　　　　　bName<br>1　　　　　2006032401<br>2　　　　　2006032402<br>3　　　　　2006032403<br>4　　　　　2006032404<br>8　　　　　2006032408</p>
-<hr>
-<p>1.left join<br>sql语句如下:<br>select * from A<br>left join B<br>on A.aID = B.bID</p>
-<p>结果如下:<br>aID　　　　　aNum　　　　　bID　　　　　bName<br>1　　　　　a20050111　　　　1　　　　　2006032401<br>2　　　　　a20050112　　　　2　　　　　2006032402<br>3　　　　　a20050113　　　　3　　　　　2006032403<br>4　　　　　a20050114　　　　4　　　　　2006032404<br>5　　　　　a20050115　　　　NULL　　　　　NULL</p>
-<p>（所影响的行数为 5 行）<br>结果说明:<br>left join是以A表的记录为基础的,A可以看成左表,B可以看成右表,left join是以左表为准的.<br>换句话说,左表(A)的记录将会全部表示出来,而右表(B)只会显示符合搜索条件的记录(例子中为: A.aID = B.bID).</p>
-<h2 id="B表记录不足的地方均为NULL"><a href="#B表记录不足的地方均为NULL" class="headerlink" title="B表记录不足的地方均为NULL."></a>B表记录不足的地方均为NULL.</h2><p>2.right join<br>sql语句如下:<br>select * from A<br>right join B<br>on A.aID = B.bID</p>
-<p>结果如下:<br>aID　　　　　aNum　　　　　bID　　　　　bName<br>1　　　　　a20050111　　　　1　　　　　2006032401<br>2　　　　　a20050112　　　　2　　　　　2006032402<br>3　　　　　a20050113　　　　3　　　　　2006032403<br>4　　　　　a20050114　　　　4　　　　　2006032404<br>NULL　　　　　NULL　　　　　8　　　　　2006032408</p>
-<p>（所影响的行数为 5 行）<br>结果说明:</p>
-<h2 id="仔细观察一下-就会发现-和left-join的结果刚好相反-这次是以右表-B-为基础的-A表不足的地方用NULL填充"><a href="#仔细观察一下-就会发现-和left-join的结果刚好相反-这次是以右表-B-为基础的-A表不足的地方用NULL填充" class="headerlink" title="仔细观察一下,就会发现,和left join的结果刚好相反,这次是以右表(B)为基础的,A表不足的地方用NULL填充."></a>仔细观察一下,就会发现,和left join的结果刚好相反,这次是以右表(B)为基础的,A表不足的地方用NULL填充.</h2><p>3.inner join<br>sql语句如下:<br>select * from A<br>innerjoin B<br>on A.aID = B.bID</p>
-<p>结果如下:<br>aID　　　　　aNum　　　　　bID　　　　　bName<br>1　　　　　a20050111　　　　1　　　　　2006032401<br>2　　　　　a20050112　　　　2　　　　　2006032402<br>3　　　　　a20050113　　　　3　　　　　2006032403<br>4　　　　　a20050114　　　　4　　　　　2006032404</p>
-<p>结果说明:</p>
-<h2 id="很明显-这里只显示出了-A-aID-B-bID的记录-这说明inner-join并不以谁为基础-它只显示符合条件的记录"><a href="#很明显-这里只显示出了-A-aID-B-bID的记录-这说明inner-join并不以谁为基础-它只显示符合条件的记录" class="headerlink" title="很明显,这里只显示出了 A.aID = B.bID的记录.这说明inner join并不以谁为基础,它只显示符合条件的记录."></a>很明显,这里只显示出了 A.aID = B.bID的记录.这说明inner join并不以谁为基础,它只显示符合条件的记录.</h2><p>注:<br>LEFT JOIN操作用于在任何的 FROM 子句中，组合来源表的记录。使用 LEFT JOIN 运算来创建一个左边外部联接。左边外部联接将包含了从第一个（左边）开始的两个表中的全部记录，即使在第二个（右边）表中并没有相符值的记录。</p>
-<p>语法：FROM table1 LEFT JOIN table2 ON table1.field1 compopr table2.field2</p>
-<p>说明：table1, table2参数用于指定要将记录组合的表的名称。<br>field1, field2参数指定被联接的字段的名称。且这些字段必须有相同的数据类型及包含相同类型的数据，但它们不需要有相同的名称。<br>compopr参数指定关系比较运算符：”=”， “&lt;”， “&gt;”， “&lt;=”， “&gt;=” 或 “&lt;&gt;”。<br>如果在INNER JOIN操作中要联接包含Memo 数据类型或 OLE Object 数据类型数据的字段，将会发生错误. </p>
+</blockquote>
+<h3 id="举例如下："><a href="#举例如下：" class="headerlink" title="举例如下："></a>举例如下：</h3><p>表A记录如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">aID　　　　　aNum</span><br><span class="line">1　　　　　a20050111</span><br><span class="line">2　　　　　a20050112</span><br><span class="line">3　　　　　a20050113</span><br><span class="line">4　　　　　a20050114</span><br><span class="line">5　　　　　a20050115</span><br></pre></td></tr></table></figure>
+<p>表B记录如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bID　　　　　bName</span><br><span class="line">1　　　　　2006032401</span><br><span class="line">2　　　　　2006032402</span><br><span class="line">3　　　　　2006032403</span><br><span class="line">4　　　　　2006032404</span><br><span class="line">8　　　　　2006032408</span><br></pre></td></tr></table></figure>
+<p>-</p>
+<h4 id="1-left-join"><a href="#1-left-join" class="headerlink" title="1.left join"></a>1.left join</h4><p>sql语句如下: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from A</span><br><span class="line">left join B </span><br><span class="line">on A.aID = B.bID</span><br></pre></td></tr></table></figure>
+<p>结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">aID　　　　　aNum　　　　　bID　　　　　bName</span><br><span class="line">1　　　　　a20050111　　　　1　　　　　2006032401</span><br><span class="line">2　　　　　a20050112　　　　2　　　　　2006032402</span><br><span class="line">3　　　　　a20050113　　　　3　　　　　2006032403</span><br><span class="line">4　　　　　a20050114　　　　4　　　　　2006032404</span><br><span class="line">5　　　　　a20050115　　　　NULL　　　　　NULL</span><br></pre></td></tr></table></figure>
+<p>（所影响的行数为 5 行）<br>结果说明:<br>left join是以A表的记录为基础的,A可以看成左表,B可以看成右表,left join是以左表为准的.</p>
+<p>换句话说,左表(A)的记录将会全部表示出来,而右表(B)只会显示符合搜索条件的记录(例子中为: A.aID = B.bID).<br>B表记录不足的地方均为NULL.</p>
+<p>-</p>
+<h4 id="2-right-join"><a href="#2-right-join" class="headerlink" title="2.right join"></a>2.right join</h4><p>sql语句如下: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from A</span><br><span class="line">right join B </span><br><span class="line">on A.aID = B.bID</span><br></pre></td></tr></table></figure>
+<p>结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">aID　　　　　aNum　　　　　bID　　　　　bName</span><br><span class="line">1　　　　　a20050111　　　　1　　　　　2006032401</span><br><span class="line">2　　　　　a20050112　　　　2　　　　　2006032402</span><br><span class="line">3　　　　　a20050113　　　　3　　　　　2006032403</span><br><span class="line">4　　　　　a20050114　　　　4　　　　　2006032404</span><br><span class="line">NULL　　　　　NULL　　　　　8　　　　　2006032408</span><br></pre></td></tr></table></figure>
+<p>（所影响的行数为 5 行）<br>结果说明:<br>仔细观察一下,就会发现,和left join的结果刚好相反,这次是以右表(B)为基础的,A表不足的地方用NULL填充.</p>
+<p>-</p>
+<h4 id="3-inner-join"><a href="#3-inner-join" class="headerlink" title="3.inner join"></a>3.inner join</h4><p>sql语句如下: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from A</span><br><span class="line">innerjoin B </span><br><span class="line">on A.aID = B.bID</span><br></pre></td></tr></table></figure>
+<p>结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">aID　　　　　aNum　　　　　bID　　　　　bName</span><br><span class="line">1　　　　　a20050111　　　　1　　　　　2006032401</span><br><span class="line">2　　　　　a20050112　　　　2　　　　　2006032402</span><br><span class="line">3　　　　　a20050113　　　　3　　　　　2006032403</span><br><span class="line">4　　　　　a20050114　　　　4　　　　　2006032404</span><br></pre></td></tr></table></figure>
+<p>结果说明:<br>很明显,这里只显示出了 A.aID = B.bID的记录.这说明inner join并不以谁为基础,它只显示符合条件的记录.</p>
+<p>-</p>
+<p>注:<br>LEFT JOIN操作用于在任何的 FROM 子句中，组合来源表的记录。使用 LEFT JOIN 运算来创建一个左边外部联接。左边外部联接将包含了从第一个（左边）开始的两个表中的全部记录，即使在第二个（右边）表中并没有相符值的记录。</p>
+<p>语法：<code>FROM table1 LEFT JOIN table2 ON table1.field1 compopr table2.field2</code><br>说明：table1, table2参数用于指定要将记录组合的表的名称。</p>
+<p>field1, field2参数指定被联接的字段的名称。且这些字段必须有相同的数据类型及包含相同类型的数据，但它们不需要有相同的名称。</p>
+<p>compopr参数指定关系比较运算符：”=”， “&lt;”， “&gt;”， “&lt;=”， “&gt;=” 或 “&lt;&gt;”。</p>
+<p>如果在INNER JOIN操作中要联接包含Memo 数据类型或 OLE Object 数据类型数据的字段，将会发生错误。</p>
 
     </div>
     
@@ -230,15 +259,15 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/10/12/memcached的调试使用/" class="pre-post btn btn-default" title="memcached的调试使用">
+        <a href="/2018/10/12/memcached（1）- 调试使用/" class="pre-post btn btn-default" title="memcached（1）- 调试使用">
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">memcached的调试使用</span>
+            <span class="hidden-xs">memcached（1）- 调试使用</span>
         </a>
     
     
-        <a href="/2018/10/07/pycharm连接mysql数据库/" class="next-post btn btn-default" title="pycharm连接mysql数据库">
+        <a href="/2018/10/07/pycharm连接mysql数据库/" class="next-post btn btn-default" title="Pycharm连接mysql数据库">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">pycharm连接mysql数据库</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">Pycharm连接mysql数据库</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -246,27 +275,23 @@
 
     <div id="comments">
         
-    
-    <div id="vcomments" class="valine"></div>
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="/assets/valine.min.js"></script>
+	
+  <script id="dsq-count-scr" src="https://snippet.disqus.com/count.js" async></script>
 
-    <script>
-        new Valine({
-            av: AV,
-            el: '#vcomments',
-            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
-            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
-            placeholder: '说点什么吧',
-            notify: false,
-            verify: false,
-            avatar: 'mm',
-            meta: 'nick,mail'.split(','),
-            pageSize: '10',
-            path: window.location.pathname,
-            lang: 'zh-CN'.toLowerCase()
-        })
-    </script>
+
+<script type="text/javascript">
+  var disqus_config = function () {
+    this.page.url = 'http://puguojing.com/2018/10/08/Mysql中的内联接、左外联接、右外联接/';
+    this.page.identifier = '2018/10/08/Mysql中的内联接、左外联接、右外联接/';
+    this.page.title = 'MySQL中的left join、right join 以及inner join之间的区别';
+  };
+  var d = document, s = d.createElement('script');
+  s.src = 'https://snippet.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', '' + +new Date());
+  (d.head || d.body).appendChild(s);
+</script>
+
+
 
 
     </div>
@@ -281,9 +306,9 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sql语句中left-join、right-join-以及innerjoin之间的使用与区别"><span class="toc-text">sql语句中left join、right join 以及innerjoin之间的使用与区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#举例如下："><span class="toc-text">举例如下：</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#B表记录不足的地方均为NULL"><span class="toc-text">B表记录不足的地方均为NULL.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#仔细观察一下-就会发现-和left-join的结果刚好相反-这次是以右表-B-为基础的-A表不足的地方用NULL填充"><span class="toc-text">仔细观察一下,就会发现,和left join的结果刚好相反,这次是以右表(B)为基础的,A表不足的地方用NULL填充.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#很明显-这里只显示出了-A-aID-B-bID的记录-这说明inner-join并不以谁为基础-它只显示符合条件的记录"><span class="toc-text">很明显,这里只显示出了 A.aID = B.bID的记录.这说明inner join并不以谁为基础,它只显示符合条件的记录.</span></a>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sql语句中left-join、right-join-以及inner-join之间的区别"><span class="toc-text">sql语句中left join、right join 以及inner join之间的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#举例如下："><span class="toc-text">举例如下：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-left-join"><span class="toc-text">1.left join</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-right-join"><span class="toc-text">2.right join</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-inner-join"><span class="toc-text">3.inner join</span></a></li></ol></li></ol>
         
-    </li></div>
+    </div>
 </aside>
 
                 
@@ -329,6 +354,28 @@
 
 
 
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
 
 
 
