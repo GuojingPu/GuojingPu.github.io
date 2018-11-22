@@ -1,0 +1,456 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="心小天个人博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://puguojing.com">
+    <!--SEO-->
+
+<meta name="description" content="生活不止coding,还有诗和远方。">
+
+
+
+<meta name="keywords" content="心小天">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>Mac下Redis数据的安装、操作、配置 | 心小天个人博客</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="心小天个人博客" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="心小天">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://puguojing.com">心小天个人博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/技术"><i class="fa "></i>技术</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/随笔"><i class="fa "></i>随笔</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Mac下Redis数据的安装、操作、配置">
+            
+	            Mac下Redis数据的安装、操作、配置
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/数据库">
+            数据库
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/数据库" title="数据库">
+                        数据库
+                    </a>
+                
+                    <a href="/tags/Redis" title="Redis">
+                        Redis
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/10/16</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="redis教程："><a href="#redis教程：" class="headerlink" title="redis教程："></a>redis教程：</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>redis是一种nosql数据库,他的数据是保存在内存中，同时redis可以定时把内存数据同步到磁盘，即可以将数据持久化，并且他比memcached支持更多的数据结构(string,list列表[队列和栈],set[集合],sorted set[有序集合],hash(hash表))。相关参考文档：<a href="http://redisdoc.com/index.html" target="_blank" rel="noopener">http://redisdoc.com/index.html</a></p>
+<h3 id="redis使用场景："><a href="#redis使用场景：" class="headerlink" title="redis使用场景："></a>redis使用场景：</h3><ul>
+<li>登录会话存储：存储在redis中，与memcached相比，数据不会丢失。</li>
+<li>排行版/计数器：比如一些秀场类的项目，经常会有一些前多少名的主播排名。还有一些文章阅读量的技术，或者新浪微博的点赞数等。</li>
+<li>作为消息队列：比如celery就是使用redis作为中间人。</li>
+<li>当前在线人数：还是之前的秀场例子，会显示当前系统有多少在线人数。</li>
+<li>一些常用的数据缓存：比如我们的BBS论坛，板块不会经常变化的，但是每次访问首页都要从mysql中获取，可以在redis中缓存起来，不用每次请求数据库。</li>
+<li>把前200篇文章缓存或者评论缓存：一般用户浏览网站，只会浏览前面一部分文章或者评论，那么可以把前面200篇文章和对应的评论缓存起来。用户访问超过的，就访问数据库，并且以后文章超过200篇，则把之前的文章删除。</li>
+<li>好友关系：微博的好友关系使用redis实现。</li>
+<li>发布和订阅功能：可以用来做聊天软件。<h4 id="redis和memcached的比较："><a href="#redis和memcached的比较：" class="headerlink" title="redis和memcached的比较："></a>redis和memcached的比较：</h4>memcached    redis<br>类型    |纯内存数据库    内存磁盘同步数据库<br>数据类型    在定义value时就要固定数据类型    不需要<br>虚拟内存    不支持    支持<br>过期策略    支持    支持<br>存储数据安全    不支持    可以将数据同步到dump.db中<br>灾难恢复    不支持    可以将磁盘中的数据恢复到内存中<br>分布式    支持    主从同步<br>订阅与发布    不支持    支持</li>
+</ul>
+<p>redis在ubuntu系统中的安装与启动</p>
+<h4 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install redis-server</span><br></pre></td></tr></table></figure>
+<h4 id="卸载："><a href="#卸载：" class="headerlink" title="卸载："></a>卸载：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get purge --auto-remove redis-server</span><br></pre></td></tr></table></figure>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>redis安装后，默认会自动启动，可以通过以下命令查看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux|grep redis</span><br></pre></td></tr></table></figure>
+<p>如果想自己手动启动，可以通过以下命令进行启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service redis-server start</span><br></pre></td></tr></table></figure>
+<h4 id="停止："><a href="#停止：" class="headerlink" title="停止："></a>停止：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service redis-server stop</span><br></pre></td></tr></table></figure>
+<h3 id="对redis的操作"><a href="#对redis的操作" class="headerlink" title="对redis的操作"></a>对redis的操作</h3><p>对redis的操作可以用两种方式，第一种方式采用redis-cli，第二种方式采用编程语言，比如Python、PHP和JAVA等。</p>
+<h4 id="使用redis-cli对redis进行字符串操作："><a href="#使用redis-cli对redis进行字符串操作：" class="headerlink" title="使用redis-cli对redis进行字符串操作："></a>使用redis-cli对redis进行字符串操作：</h4><h5 id="启动redis："><a href="#启动redis：" class="headerlink" title="启动redis："></a>启动redis：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service redis-server start</span><br></pre></td></tr></table></figure>
+<h5 id="连接上redis-server："><a href="#连接上redis-server：" class="headerlink" title="连接上redis-server："></a>连接上redis-server：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h [ip] -p [端口]</span><br></pre></td></tr></table></figure>
+<h5 id="添加："><a href="#添加：" class="headerlink" title="添加："></a>添加：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set key value</span><br><span class="line">```  </span><br><span class="line">  如：</span><br></pre></td></tr></table></figure>
+<p>set username xiaotuo<br><code>`</code></p>
+<p>将字符串值value关联到key。如果key已经持有其他值，set命令就覆写旧值，无视其类型。并且默认的过期时间是永久，即永远不会过期。</p>
+<h5 id="删除："><a href="#删除：" class="headerlink" title="删除："></a>删除：</h5><p>  del key<br>  如：<br>  del username<br>设置过期时间：</p>
+<p>  expire key timeout(单位为秒)<br>也可以在设置值的时候，一同指定过期时间：</p>
+<p>  set key value EX timeout<br>  或：<br>  setex key timeout value<br>查看过期时间：</p>
+<p>  ttl key<br>  如：<br>  ttl username<br>查看当前redis中的所有key：</p>
+<p>  keys *<br>列表操作：</p>
+<p>在列表左边添加元素：</p>
+<p>  lpush key value<br>将值value插入到列表key的表头。如果key不存在，一个空列表会被创建并执行lpush操作。当key存在但不是列表类型时，将返回一个错误。</p>
+<p>在列表右边添加元素：</p>
+<p>  rpush key value<br>将值value插入到列表key的表尾。如果key不存在，一个空列表会被创建并执行RPUSH操作。当key存在但不是列表类型时，返回一个错误。</p>
+<p>查看列表中的元素：</p>
+<p>  lrange key start stop<br>返回列表key中指定区间内的元素，区间以偏移量start和stop指定,如果要左边的第一个到最后的一个lrange key 0 -1。</p>
+<p>移除列表中的元素：</p>
+<p>移除并返回列表key的头元素：<br>  lpop key<br>移除并返回列表的尾元素：<br>rpop key<br>移除并返回列表key的中间元素：</p>
+<p>  lrem key count value<br>将删除key这个列表中，count个值为value的元素。</p>
+<p>指定返回第几个元素：</p>
+<p>  lindex key index<br>将返回key这个列表中，索引为index的这个元素。</p>
+<p>获取列表中的元素个数：</p>
+<p>  llen key<br>  如：<br>  llen languages<br>删除指定的元素：</p>
+<p>  lrem key count value<br>  如：<br>  lrem languages 0 php<br>根据参数 count 的值，移除列表中与参数 value 相等的元素。count的值可以是以下几种：</p>
+<p>count &gt; 0：从表头开始向表尾搜索，移除与value相等的元素，数量为count。<br>count &lt; 0：从表尾开始向表头搜索，移除与 value相等的元素，数量为count的绝对值。<br>count = 0：移除表中所有与value 相等的值。<br>set集合的操作：</p>
+<p>添加元素：<br>  sadd set value1 value2….<br>  如：<br>  sadd team xiaotuo datuo<br>查看元素：<br>  smembeers set<br>  如：<br>  smembers team<br>移除元素：<br>  srem set member…<br>  如：<br>  srem team xiaotuo datuo<br>查看集合中的元素个数：<br>  scard set<br>  如：<br>  scard team1<br>获取多个集合的交集：<br>  sinter set1 set2<br>  如：<br>  sinter team1 team2<br>获取多个集合的并集：<br>  sunion set1 set2<br>  如：<br>  sunion team1 team2<br>获取多个集合的差集：<br>sdiff set1 set2<br>如：<br>sdiff team1 team2<br>hash哈希操作：</p>
+<p>添加一个新值：</p>
+<p>  hset key field value<br>  如：<br>  hset website baidu baidu.com<br>将哈希表key中的域field的值设为value。<br>如果key不存在，一个新的哈希表被创建并进行 HSET操作。如果域 field已经存在于哈希表中，旧值将被覆盖。</p>
+<p>获取哈希中的field对应的值：</p>
+<p>  hget key field<br>  如：<br>  hget website baidu<br>删除field中的某个field：</p>
+<p>  hdel key field<br>  如：<br>  hdel website baidu<br>获取某个哈希中所有的field和value：</p>
+<p>  hgetall key<br>  如：<br>  hgetall website<br>获取某个哈希中所有的field：</p>
+<p>  hkeys key<br>  如：<br>  hkeys website<br>获取某个哈希中所有的值：</p>
+<p>hvals key<br>如：<br>hvals website<br>判断哈希中是否存在某个field：</p>
+<p>hexists key field<br>如：<br>hexists website baidu<br>获取哈希中总共的键值对：</p>
+<p>hlen field<br>如：<br>hlen website<br>事务操作：Redis事务可以一次执行多个命令，事务具有以下特征：</p>
+<p>隔离操作：事务中的所有命令都会序列化、按顺序地执行，不会被其他命令打扰。<br>原子操作：事务中的命令要么全部被执行，要么全部都不执行。<br>开启一个事务：</p>
+<p>  multi<br>以后执行的所有命令，都在这个事务中执行的。</p>
+<p>执行事务：</p>
+<p>  exec<br>会将在multi和exec中的操作一并提交。</p>
+<p>取消事务：</p>
+<p>  discard<br>会将multi后的所有命令取消。</p>
+<p>监视一个或者多个key：</p>
+<p>  watch key…<br>监视一个(或多个)key，如果在事务执行之前这个(或这些) key被其他命令所改动，那么事务将被打断。</p>
+<p>取消所有key的监视：</p>
+<p>  unwatch<br>发布/订阅操作：</p>
+<p>给某个频道发布消息：<br>  publish channel message<br>订阅某个频道的消息：<br>  subscribe channel<br>持久化：redis提供了两种数据备份方式，一种是RDB，另外一种是AOF，以下将详细介绍这两种备份策略：</p>
+<p>| | RDB | AOF | | — | — | — | | 开启关闭 | 开启：默认开启。关闭：把配置文件中所有的save都注释，就是关闭了。 | 开启：在配置文件中appendonly yes即开启了aof，为no关闭。 | | 同步机制 | 可以指定某个时间内发生多少个命令进行同步。比如1分钟内发生了2次命令，就做一次同步。 | 每秒同步或者每次发生命令后同步 | | 存储内容 | 存储的是redis里面的具体的值 | 存储的是执行的更新数据的操作命令 | | 存储文件的路径 | 根据dir以及dbfilename来指定路径和具体的文件名 | 根据dir以及appendfilename来指定具体的路径和文件名 | | 优点 | （1）存储数据到文件中会进行压缩，文件体积比aof小。（2）因为存储的是redis具体的值，并且会经过压缩，因此在恢复的时候速度比AOF快。（3）非常适用于备份。 | （1）AOF的策略是每秒钟或者每次发生写操作的时候都会同步，因此即使服务器故障，最多只会丢失1秒的数据。 （2）AOF存储的是Redis命令，并且是直接追加到aof文件后面，因此每次备份的时候只要添加新的数据进去就可以了。（3）如果AOF文件比较大了，那么Redis会进行重写，只保留最小的命令集合。 | | 缺点 | （1）RDB在多少时间内发生了多少写操作的时候就会出发同步机制，因为采用压缩机制，RDB在同步的时候都重新保存整个Redis中的数据，因此你一般会设置在最少5分钟才保存一次数据。在这种情况下，一旦服务器故障，会造成5分钟的数据丢失。（2）在数据保存进RDB的时候，Redis会fork出一个子进程用来同步，在数据量比较大的时候，可能会非常耗时。 | （1）AOF文件因为没有压缩，因此体积比RDB大。 （2）AOF是在每秒或者每次写操作都进行备份，因此如果并发量比较大，效率可能有点慢。（3）AOF文件因为存储的是命令，因此在灾难恢复的时候Redis会重新运行AOF中的命令，速度不及RDB。 | | 更多 | <a href="http://redisdoc.com/topic/persistence.html#redis" target="_blank" rel="noopener">http://redisdoc.com/topic/persistence.html#redis</a> | |</p>
+<p>安全：在配置文件中，设置requirepass password，那么客户端连接的时候，需要使用密码：</p>
+<blockquote>
+<p>redis-cli -p 127.0.0.1 -p 6379<br> redis&gt; set username xxx<br> (error) NOAUTH Authentication required.<br> redis&gt; auth password<br> redis&gt; set username xxx<br> OK<br>Python操作redis<br>安装python-redis：</p>
+</blockquote>
+<p> pip install redis<br>新建一个文件比如redis_test.py，然后初始化一个redis实例变量，并且在ubuntu虚拟机中开启redis。比如虚拟机的ip地址为192.168.174.130。示例代码如下：</p>
+<h1 id="从redis包中导入Redis类"><a href="#从redis包中导入Redis类" class="headerlink" title="从redis包中导入Redis类"></a>从redis包中导入Redis类</h1><p> from redis import Redis</p>
+<h1 id="初始化redis实例变量"><a href="#初始化redis实例变量" class="headerlink" title="初始化redis实例变量"></a>初始化redis实例变量</h1><p> xtredis = Redis(host=’192.168.174.130’,port=6379)<br>对字符串的操作：操作redis的方法名称，跟之前使用redis-cli一样，现就一些常用的来做个简单介绍，示例代码如下(承接以上的代码)：</p>
+<h1 id="添加一个值进去，并且设置过期时间为60秒，如果不设置，则永远不会过期"><a href="#添加一个值进去，并且设置过期时间为60秒，如果不设置，则永远不会过期" class="headerlink" title="添加一个值进去，并且设置过期时间为60秒，如果不设置，则永远不会过期"></a>添加一个值进去，并且设置过期时间为60秒，如果不设置，则永远不会过期</h1><p> xtredis.set(‘username’,’xiaotuo’,ex=60)</p>
+<h1 id="获取一个值"><a href="#获取一个值" class="headerlink" title="获取一个值"></a>获取一个值</h1><p> xtredis.get(‘username’)</p>
+<h1 id="删除一个值"><a href="#删除一个值" class="headerlink" title="删除一个值"></a>删除一个值</h1><p> xtredis.delete(‘username’)</p>
+<h1 id="给某个值自增1"><a href="#给某个值自增1" class="headerlink" title="给某个值自增1"></a>给某个值自增1</h1><p> xtredis.set(‘read_count’,1)<br> xtredis.incr(‘read_count’)  # 这时候read_count变为2</p>
+<h1 id="给某个值减少1"><a href="#给某个值减少1" class="headerlink" title="给某个值减少1"></a>给某个值减少1</h1><p> xtredis.decr(‘read_count’) # 这时候read_count变为1<br>对列表的操作：同字符串操作，所有方法的名称跟使用redis-cli操作是一样的：</p>
+<h1 id="给languages这个列表往左边添加一个python"><a href="#给languages这个列表往左边添加一个python" class="headerlink" title="给languages这个列表往左边添加一个python"></a>给languages这个列表往左边添加一个python</h1><p> xtredis.lpush(‘languages’,’python’)</p>
+<h1 id="给languages这个列表往左边添加一个php"><a href="#给languages这个列表往左边添加一个php" class="headerlink" title="给languages这个列表往左边添加一个php"></a>给languages这个列表往左边添加一个php</h1><p> xtredis.lpush(‘languages’,’php’)</p>
+<h1 id="给languages这个列表往左边添加一个javascript"><a href="#给languages这个列表往左边添加一个javascript" class="headerlink" title="给languages这个列表往左边添加一个javascript"></a>给languages这个列表往左边添加一个javascript</h1><p> xtredis.lpush(‘languages’,’javascript’)</p>
+<h1 id="获取languages这个列表中的所有值"><a href="#获取languages这个列表中的所有值" class="headerlink" title="获取languages这个列表中的所有值"></a>获取languages这个列表中的所有值</h1><p> print xtredis.lrange(‘languages’,0,-1)</p>
+<blockquote>
+<p>[‘javascript’,’php’,’python’]<br>对集合的操作：</p>
+</blockquote>
+<h1 id="给集合team添加一个元素xiaotuo"><a href="#给集合team添加一个元素xiaotuo" class="headerlink" title="给集合team添加一个元素xiaotuo"></a>给集合team添加一个元素xiaotuo</h1><p> xtredis.sadd(‘team’,’xiaotuo’)</p>
+<h1 id="给集合team添加一个元素datuo"><a href="#给集合team添加一个元素datuo" class="headerlink" title="给集合team添加一个元素datuo"></a>给集合team添加一个元素datuo</h1><p> xtredis.sadd(‘team’,’datuo’)</p>
+<h1 id="给集合team添加一个元素slice"><a href="#给集合team添加一个元素slice" class="headerlink" title="给集合team添加一个元素slice"></a>给集合team添加一个元素slice</h1><p> xtredis.sadd(‘team’,’slice’)</p>
+<h1 id="获取集合中的所有元素"><a href="#获取集合中的所有元素" class="headerlink" title="获取集合中的所有元素"></a>获取集合中的所有元素</h1><p> xtredis.smembers(‘team’)</p>
+<blockquote>
+<p>[‘datuo’,’xiaotuo’,’slice’] # 无序的<br>对哈希(hash)的操作：</p>
+</blockquote>
+<h1 id="给website这个哈希中添加baidu"><a href="#给website这个哈希中添加baidu" class="headerlink" title="给website这个哈希中添加baidu"></a>给website这个哈希中添加baidu</h1><p> xtredis.hset(‘website’,’baidu’,’baidu.com’)</p>
+<h1 id="给website这个哈希中添加google"><a href="#给website这个哈希中添加google" class="headerlink" title="给website这个哈希中添加google"></a>给website这个哈希中添加google</h1><p> xtredis.hset(‘website’,’google’,’google.com’)</p>
+<h1 id="获取website这个哈希中的所有值"><a href="#获取website这个哈希中的所有值" class="headerlink" title="获取website这个哈希中的所有值"></a>获取website这个哈希中的所有值</h1><p> print xtredis.hgetall(‘website’)</p>
+<blockquote>
+<p>{“baidu”:”baidu.com”,”google”:”google.com”}<br>事务(管道)操作：redis支持事务操作，也即一些操作只有统一完成，才能算完成。否则都执行失败，用python操作redis也是非常简单，示例代码如下：</p>
+</blockquote>
+<h1 id="定义一个管道实例"><a href="#定义一个管道实例" class="headerlink" title="定义一个管道实例"></a>定义一个管道实例</h1><p> pip = xtredis.pipeline()</p>
+<h1 id="做第一步操作，给BankA自增长1"><a href="#做第一步操作，给BankA自增长1" class="headerlink" title="做第一步操作，给BankA自增长1"></a>做第一步操作，给BankA自增长1</h1><p> pip.incr(‘BankA’)</p>
+<h1 id="做第二步操作，给BankB自减少1"><a href="#做第二步操作，给BankB自减少1" class="headerlink" title="做第二步操作，给BankB自减少1"></a>做第二步操作，给BankB自减少1</h1><p> pip.desc(‘BankB’)</p>
+<h1 id="执行事务"><a href="#执行事务" class="headerlink" title="执行事务"></a>执行事务</h1><p> pip.execute()<br>以上便展示了python-redis的一些常用方法，如果想深入了解其他的方法，可以参考python-redis的源代码（查看源代码pycharm快捷键提示：把鼠标光标放在import Redis的Redis上，然后按ctrl+b即可进入）。</p>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://pc59bkg3l.bkt.clouddn.com/reward-alipay.jpg"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://pc59bkg3l.bkt.clouddn.com/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">谢谢你的赞赏</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/10/16/mac下Redis数据的安装、操作、配置/" class="pre-post btn btn-default" title="Mac下Redis数据的安装、操作、配置">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">Mac下Redis数据的安装、操作、配置</span>
+        </a>
+    
+    
+        <a href="/2018/10/12/memcached（1）- 调试使用/" class="next-post btn btn-default" title="memcached（1）- 调试使用">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">memcached（1）- 调试使用</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'nRczxBYhHdsdxxz5Xanbp1Me-gzGzoHsz',
+            appKey: '8yPer27HUdgsdNqfDBiMuUyo',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#redis教程："><span class="toc-text">redis教程：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis使用场景："><span class="toc-text">redis使用场景：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#redis和memcached的比较："><span class="toc-text">redis和memcached的比较：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装："><span class="toc-text">安装：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#卸载："><span class="toc-text">卸载：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动"><span class="toc-text">启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#停止："><span class="toc-text">停止：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对redis的操作"><span class="toc-text">对redis的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用redis-cli对redis进行字符串操作："><span class="toc-text">使用redis-cli对redis进行字符串操作：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#启动redis："><span class="toc-text">启动redis：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#连接上redis-server："><span class="toc-text">连接上redis-server：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#添加："><span class="toc-text">添加：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#删除："><span class="toc-text">删除：</span></a></li></ol></li></ol></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#从redis包中导入Redis类"><span class="toc-text">从redis包中导入Redis类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#初始化redis实例变量"><span class="toc-text">初始化redis实例变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#添加一个值进去，并且设置过期时间为60秒，如果不设置，则永远不会过期"><span class="toc-text">添加一个值进去，并且设置过期时间为60秒，如果不设置，则永远不会过期</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#获取一个值"><span class="toc-text">获取一个值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#删除一个值"><span class="toc-text">删除一个值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#给某个值自增1"><span class="toc-text">给某个值自增1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#给某个值减少1"><span class="toc-text">给某个值减少1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#给languages这个列表往左边添加一个python"><span class="toc-text">给languages这个列表往左边添加一个python</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#给languages这个列表往左边添加一个php"><span class="toc-text">给languages这个列表往左边添加一个php</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#给languages这个列表往左边添加一个javascript"><span class="toc-text">给languages这个列表往左边添加一个javascript</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#获取languages这个列表中的所有值"><span class="toc-text">获取languages这个列表中的所有值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#给集合team添加一个元素xiaotuo"><span class="toc-text">给集合team添加一个元素xiaotuo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#给集合team添加一个元素datuo"><span class="toc-text">给集合team添加一个元素datuo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#给集合team添加一个元素slice"><span class="toc-text">给集合team添加一个元素slice</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#获取集合中的所有元素"><span class="toc-text">获取集合中的所有元素</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#给website这个哈希中添加baidu"><span class="toc-text">给website这个哈希中添加baidu</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#给website这个哈希中添加google"><span class="toc-text">给website这个哈希中添加google</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#获取website这个哈希中的所有值"><span class="toc-text">获取website这个哈希中的所有值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#定义一个管道实例"><span class="toc-text">定义一个管道实例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#做第一步操作，给BankA自增长1"><span class="toc-text">做第一步操作，给BankA自增长1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#做第二步操作，给BankB自减少1"><span class="toc-text">做第二步操作，给BankB自减少1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#执行事务"><span class="toc-text">执行事务</span></a>
+        
+    </li></div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

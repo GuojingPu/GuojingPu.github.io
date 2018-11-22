@@ -1,0 +1,386 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="心小天个人博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://puguojing.com">
+    <!--SEO-->
+
+<meta name="description" content="生活不止coding,还有诗和远方。">
+
+
+
+<meta name="keywords" content="心小天">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>Mac下Redis数据的安装、操作、配置 | 心小天个人博客</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="心小天个人博客" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="心小天">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://puguojing.com">心小天个人博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/技术"><i class="fa "></i>技术</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/随笔"><i class="fa "></i>随笔</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Mac下Redis数据的安装、操作、配置">
+            
+	            Mac下Redis数据的安装、操作、配置
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/数据库">
+            数据库
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/数据库" title="数据库">
+                        数据库
+                    </a>
+                
+                    <a href="/tags/Redis" title="Redis">
+                        Redis
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/10/16</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h3><p>使用brew安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install redis</span><br></pre></td></tr></table></figure>
+<p>完成后会自动安装redis-server和redis-cli。</p>
+<p>redis安装后，默认会自动启动，可以通过以下PS进程命令查看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux|grep redis</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ps aux|grep redis</span><br><span class="line">pgj              17677   0.0  0.0  4287208   1064 s001  S+    3:54下午   0:00.01 grep --color=auto --exclude-dir=.bzr --exclude-dir=CVS --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn redis</span><br><span class="line">pgj              17616   0.0  0.0  4295500   1160 s003  S+    3:44下午   0:00.02 redis-cli -h 127.0.0.1 -p 6379 -a foobared</span><br><span class="line">pgj              17555   0.0  0.0  4309276   2312 s002  S+    3:40下午   0:00.62 redis-server 127.0.0.1:6379</span><br></pre></td></tr></table></figure>
+<p>可以看到进程PID为17555的就是redis-server,可以使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill 17555</span><br></pre></td></tr></table></figure>
+<p>关闭Redis服务（不建议使用，强制杀死进程，可能导致Redis部分缓存丢失）。</p>
+<h4 id="手动启动："><a href="#手动启动：" class="headerlink" title="手动启动："></a>手动启动：</h4><p>Redis安装完成后会生成<code>/usr/local/etc/redis.conf</code>文件，执行启动命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server /usr/local/etc/redis.conf</span><br></pre></td></tr></table></figure>
+<p>会显示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ redis-server /usr/local/etc/redis.conf</span><br><span class="line">17555:C 16 Oct 15:40:34.312 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span><br><span class="line">17555:C 16 Oct 15:40:34.313 # Redis version=4.0.4, bits=64, commit=00000000, modified=0, pid=17555, just started</span><br><span class="line">17555:C 16 Oct 15:40:34.313 # Configuration loaded</span><br><span class="line">17555:M 16 Oct 15:40:34.316 * Increased maximum number of open files to 10032 (it was originally set to 4864).</span><br><span class="line">                _._</span><br><span class="line">           _.-``__ &apos;&apos;-._</span><br><span class="line">      _.-``    `.  `_.  &apos;&apos;-._           Redis 4.0.4 (00000000/0) 64 bit</span><br><span class="line">  .-`` .-```.  ```\/    _.,_ &apos;&apos;-._</span><br><span class="line"> (    &apos;      ,       .-`  | `,    )     Running in standalone mode</span><br><span class="line"> |`-._`-...-` __...-.``-._|&apos;` _.-&apos;|     Port: 6379</span><br><span class="line"> |    `-._   `._    /     _.-&apos;    |     PID: 17555</span><br><span class="line">  `-._    `-._  `-./  _.-&apos;    _.-&apos;</span><br><span class="line"> |`-._`-._    `-.__.-&apos;    _.-&apos;_.-&apos;|</span><br><span class="line"> |    `-._`-._        _.-&apos;_.-&apos;    |           http://redis.io</span><br><span class="line">  `-._    `-._`-.__.-&apos;_.-&apos;    _.-&apos;</span><br><span class="line"> |`-._`-._    `-.__.-&apos;    _.-&apos;_.-&apos;|</span><br><span class="line"> |    `-._`-._        _.-&apos;_.-&apos;    |</span><br><span class="line">  `-._    `-._`-.__.-&apos;_.-&apos;    _.-&apos;</span><br><span class="line">      `-._    `-.__.-&apos;    _.-&apos;</span><br><span class="line">          `-._        _.-&apos;</span><br></pre></td></tr></table></figure>
+<p>说明启动成功。</p>
+<h4 id="客户端连接"><a href="#客户端连接" class="headerlink" title="客户端连接"></a>客户端连接</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h [ip] -p [端口]</span><br></pre></td></tr></table></figure>
+<p>-h:指定IP<br>-p:指定端口号（默认6379，可在redis.conf中修改）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h 127.0.0.1 -p 6379</span><br></pre></td></tr></table></figure>
+<p>###配置<br>配置文件具体在：<code>/usr/local/etc/redis.conf</code></p>
+<h4 id="1-添加密码"><a href="#1-添加密码" class="headerlink" title="1.添加密码"></a>1.添加密码</h4><p>在配置文件中找到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># use a very strong password otherwise it will be very easy to break.</span><br><span class="line">#</span><br><span class="line"># requirepass foobared</span><br><span class="line">#</span><br></pre></td></tr></table></figure>
+<p>其中<code>requirepass</code>后面的字符，就是Redis数据库密码,默认时注释掉的。如果此处指定了密码，那么以后使用<code>redis-cli</code>链接redis数据库的时候就要使用密码，否则连接Redis数据库之后,无法进行Redis数据库操作。<br>比如指定密码为：123456</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># use a very strong password otherwise it will be very easy to break.</span><br><span class="line">#</span><br><span class="line">requirepass 123456</span><br><span class="line">#</span><br></pre></td></tr></table></figure>
+<p>那么以后使用<code>redis-cli</code>连接数据库的时候就要用<code>-a</code>指定密码下面的命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h 127.0.0.1 -p 6379 -a 123456</span><br></pre></td></tr></table></figure>
+<p>如果你在连接redis数据库是没有使用-a指定密码，也可以在redis-cli命令行中使用：<code>auth password</code>指定密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; auth 123456</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+<h4 id="2-让其其他的电脑访问可以redis"><a href="#2-让其其他的电脑访问可以redis" class="headerlink" title="2.让其其他的电脑访问可以redis"></a>2.让其其他的电脑访问可以redis</h4><p>在配置文件中找打bind,默认IP只有127.0.0.1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bind 127.0.0.1 ::1</span><br></pre></td></tr></table></figure>
+<p>在<code>127.0.0.1</code>后面加上自己电脑的（redis-server所在的电脑）的IP。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bind 127.0.0.1  198.168.1.102</span><br></pre></td></tr></table></figure>
+<p>注意：添加不是Redis客户端的IP，是redis-server端的IP。<br>这样别的客户端就可以使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h 198.168.1.102 6379</span><br></pre></td></tr></table></figure>
+<p>来连接redis数据库了</p>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://pc59bkg3l.bkt.clouddn.com/reward-alipay.jpg"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://pc59bkg3l.bkt.clouddn.com/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">谢谢你的赞赏</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/11/06/随笔/" class="pre-post btn btn-default" title="随笔">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">随笔</span>
+        </a>
+    
+    
+        <a href="/2018/10/16/Redis数据库的数据类型及操作/" class="next-post btn btn-default" title="Mac下Redis数据的安装、操作、配置">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Mac下Redis数据的安装、操作、配置</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'nRczxBYhHdsdxxz5Xanbp1Me-gzGzoHsz',
+            appKey: '8yPer27HUdgsdNqfDBiMuUyo',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-安装"><span class="toc-text">1.安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#手动启动："><span class="toc-text">手动启动：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端连接"><span class="toc-text">客户端连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-添加密码"><span class="toc-text">1.添加密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-让其其他的电脑访问可以redis"><span class="toc-text">2.让其其他的电脑访问可以redis</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
