@@ -1,0 +1,377 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="心小天个人博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://puguojing.com">
+    <!--SEO-->
+
+<meta name="description" content="生活不止coding,还有诗和远方。">
+
+
+
+<meta name="keywords" content="心小天">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>Python读取大文件的注意事项 | 心小天个人博客</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="心小天个人博客" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="心小天">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://puguojing.com">心小天个人博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/技术"><i class="fa "></i>技术</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/随笔"><i class="fa "></i>随笔</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Python读取大文件的注意事项">
+            
+	            Python读取大文件的注意事项
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/数据库">
+            数据库
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/python" title="python">
+                        python
+                    </a>
+                
+                    <a href="/tags/内存溢出" title="内存溢出">
+                        内存溢出
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/12/12</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>python读写文件的都很简单，直接一个with open就解决了，但是这也只是在学习基础知识时候的小案例，不能轻易放入项目中。</p>
+<h4 id="1-read-与readlines"><a href="#1-read-与readlines" class="headerlink" title="1.read()与readlines()"></a>1.read()与readlines()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">with open(file_path, &apos;rb&apos;) as f:</span><br><span class="line">    sha1Obj.update(f.read())</span><br><span class="line">or</span><br><span class="line">with open(file_path, &apos;rb&apos;) as f:</span><br><span class="line">    for line in f.readlines():</span><br><span class="line">        print(line)</span><br></pre></td></tr></table></figure>
+<p>这对方法在读取小文件时确实不会产生什么异常，但是一旦读取大文件，很容易会产生MemoryError，也就是内存溢出的问题。</p>
+<p>####Why Memory Error？</p>
+<p>我们首先来看看这几个方法：</p>
+<h5 id="read方法"><a href="#read方法" class="headerlink" title="read方法"></a>read方法</h5><p>read([size])方法从文件当前位置起读取size个字节，若无参数size（size=-1），则表示读取至文件结束EOF为止，当文件大小大于可用内存时，自然会发生内存溢出的错误。</p>
+<h5 id="readline方法"><a href="#readline方法" class="headerlink" title="readline方法"></a>readline方法</h5><p>该方法每次读出一行内容，所以，读取时占用内存小，比较适合大文件，该方法返回一个字符串对象。</p>
+<p>可选参数 size 的含义同上。它是以行为单位返回字符串，也就是每次读一行，依次循环，如果不限定 size，直到最后一个返回的是空字符串，意味着到文件末尾了(EOF).</p>
+<h5 id="readlines方法"><a href="#readlines方法" class="headerlink" title="readlines方法"></a>readlines方法</h5><p>size参数 同上。它返回的是以行为单位的列表，即相当于先执行 readline() ，得到每一行，然后把这一行的字符串作为列表中的元素塞到一个列表中，最后将此列表返回。<br>readlines构造的是list|而不是iter，所以所有的内容都会保存在内存之上，文件内容过大同样也会发生内存溢出的错误。</p>
+<h5 id="2-正确的用法"><a href="#2-正确的用法" class="headerlink" title="2.正确的用法"></a>2.正确的用法</h5><p>在实际运行的系统之中如果写出上述代码是十分危险的，。所以接下来我们来了解一下正确用法。</p>
+<p>如果是<strong>二进制</strong>文件推荐用如下这种写法，可以自己指定缓冲区有多少byte。显然缓冲区越大，读取速度越快。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">with open(file_path, &apos;rb&apos;) as f:</span><br><span class="line">    while True:</span><br><span class="line">        buf = f.read(1024)</span><br><span class="line">        if buf:    </span><br><span class="line">            Obj.update(buf)</span><br><span class="line">        else:</span><br><span class="line">            break</span><br></pre></td></tr></table></figure>
+<p>而如果是文本文件，则可以用readline方法或直接迭代文件（python这里封装了一个语法糖，二者的内生逻辑一致，不过显然迭代文件的写法更pythonic ）每次读取一行，效率是比较低的。笔者简单测试了一下，在3G文件之下，大概性能和前者差了20%.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">with open(file_path, &apos;rb&apos;) as f:</span><br><span class="line">    while True:</span><br><span class="line">        line = f.readline()</span><br><span class="line">        if buf:    </span><br><span class="line">            print(line)</span><br><span class="line">        else:</span><br><span class="line">            break</span><br><span class="line">            </span><br><span class="line">with open(file_path, &apos;rb&apos;) as f:</span><br><span class="line">    for line in f:</span><br><span class="line">        print(line)</span><br></pre></td></tr></table></figure>
+<p>所以在使用python读取文件的时候如果是大文件（接近内存或大于1G）建议使用read(size=1024)（二进制文件）或者readline()（文本文件）。如果文件不大，而且需要经常使用文件数据，则可以直接使用read()和readlines()把数据全加载到内存里。</p>
+<h4 id="3-内存检测工具的介绍"><a href="#3-内存检测工具的介绍" class="headerlink" title="3.内存检测工具的介绍"></a>3.内存检测工具的介绍</h4><p>对于python代码的内存占用问题，对于代码进行内存监控十分必要。这里推荐两个小工具来检测python代码的内存占用。</p>
+<p>####memory_profiler</p>
+<p>首先先用pip安装memory_profiler</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install memory_profiler</span><br></pre></td></tr></table></figure>
+<p>memory_profiler是利用python的装饰器工作的，所以我们需要在进行测试的函数上添加装饰器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from hashlib import sha1</span><br><span class="line">import sys</span><br><span class="line">@profile</span><br><span class="line">def my_func():</span><br><span class="line">    sha1Obj = sha1()</span><br><span class="line">    with open(sys.argv[1], &apos;rb&apos;) as f:</span><br><span class="line">        while True:</span><br><span class="line">            buf = f.read(10 * 1024 * 1024)</span><br><span class="line">            if buf:</span><br><span class="line">                sha1Obj.update(buf)</span><br><span class="line">            else:</span><br><span class="line">                break</span><br><span class="line">    print(sha1Obj.hexdigest())</span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    my_func()</span><br></pre></td></tr></table></figure>
+<p>之后在运行代码时加上”<code>-m memory_profiler</code>“</p>
+<p>就可以了解函数每一步代码的内存占用了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyhton -m memory_profiler  test.py</span><br></pre></td></tr></table></figure>
+<h4 id="guppy"><a href="#guppy" class="headerlink" title="guppy"></a>guppy</h4><p>依仍然是通过pip先安装guppy</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install guppy</span><br></pre></td></tr></table></figure>
+<p>之后可以在代码之中利用guppy直接打印出对应各种python类型（list、tuple、dict等）分别创建了多少对象，占用了多少内存。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from guppy import hpy</span><br><span class="line">import sys</span><br><span class="line">def my_func():</span><br><span class="line">    mem = hpy()</span><br><span class="line">    with open(sys.argv[1], &apos;rb&apos;) as f:</span><br><span class="line">        while True:</span><br><span class="line">            buf = f.read(10 * 1024 * 1024)</span><br><span class="line">            if buf:</span><br><span class="line">                print(mem.heap())</span><br><span class="line">            else:</span><br><span class="line">                break</span><br></pre></td></tr></table></figure>
+<p>运行后，可以看到打印出对应的内存占用数据。</p>
+<p>通过上述两种工具guppy与memory_profiler可以很好地来监控python代码运行时的内存占用问题。</p>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://pc59bkg3l.bkt.clouddn.com/reward-alipay.jpg"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://pc59bkg3l.bkt.clouddn.com/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">谢谢你的赞赏</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2018/11/09/集群介绍及配置/" class="next-post btn btn-default" title="集群介绍及配置">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">集群介绍及配置</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'nRczxBYhHdsdxxz5Xanbp1Me-gzGzoHsz',
+            appKey: '8yPer27HUdgsdNqfDBiMuUyo',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-read-与readlines"><span class="toc-text">1.read()与readlines()</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#read方法"><span class="toc-text">read方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#readline方法"><span class="toc-text">readline方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#readlines方法"><span class="toc-text">readlines方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-正确的用法"><span class="toc-text">2.正确的用法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-内存检测工具的介绍"><span class="toc-text">3.内存检测工具的介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#guppy"><span class="toc-text">guppy</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
