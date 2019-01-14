@@ -1,0 +1,357 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="心小天个人博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://puguojing.com">
+    <!--SEO-->
+
+<meta name="description" content="生活不止coding,还有诗和远方。">
+
+
+
+<meta name="keywords" content="心小天">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>安装配置TensorFlow的GPU版本 | 心小天个人博客</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="心小天个人博客" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="心小天">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://puguojing.com">心小天个人博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/技术"><i class="fa "></i>技术</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/随笔"><i class="fa "></i>随笔</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="安装配置TensorFlow的GPU版本">
+            
+	            安装配置TensorFlow的GPU版本
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/深度学习">
+            深度学习
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/TensorFlow" title="TensorFlow">
+                        TensorFlow
+                    </a>
+                
+                    <a href="/tags/机器学习" title="机器学习">
+                        机器学习
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/01/07</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>###win10下tensorflow、Kera的GPU版本配置</p>
+<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>你准备配置TensorFlow GPU版本的之前，你肯定已经十分熟悉了python的开发环境的配置。一个Python的初学者，通常不会上来就做那么复杂的工作。Python、pip、anacoda、virtualenv、virtualenvwrapper…分别是什么？什么是python虚拟环境、为什么需要虚拟环境？如何在windows/linux/mac下安装配置python的开发环境、你可以参考我的<a href="">【这篇文章】</a>或者自己查阅资料。</p>
+<p>你已经安装好了Python的开发环境，不管你是不使用anaconda还是pip，virtuaenv，这里我用的是“<strong>python3+pip+virtualenvwrapper</strong>”的环境,接下来我们来安装CUDA和cuDNN。</p>
+<p>####1.该如何选择CUDA的版本？<br>这里建议选择CUDA9.0的版本，至于为什么选择CUDA9.0而不选择最新的CUDA10.0这里讲一下。</p>
+<p>因为现在tensorflow-gpu的版本更新到tensorflow-gpu==1.12版本，它不支持CUDA10.0版本，即使你正确安装了CUDA10.0版本和对应的cuDNN版本，你在<figure class="highlight plain"><figcaption><span>tensorflow``` 时，也会遇到 “找不到对应的DLL模块的错误”。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">当然如果你非要安装CUDA 10.0的版本，我这里有一个被修改过的tensorflow-gpu本地安装版本，他可以在CUDA10.0的版本下正常运行。这里是下载链接：[xxxx.whl]()</span><br><span class="line"></span><br><span class="line">下载完成后通过</span><br></pre></td></tr></table></figure></p>
+<p>pip install  xxxx.whl<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">安装，当然在安装前,如果你已经安装过tensorflow包或者tensorflow-gpu包的话，你需要先卸载他们。</span><br><span class="line"></span><br><span class="line">而至于更老的8.1的版本，一方面是因为他看起来有点过时了，另一方面是因为他在安装和使用的时候会产生一些不兼容问题，所以也不建议使用。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 2.安装</span><br><span class="line">这里的参考安装版本组合：python3.6 + tensorflow 1.12 + keras 2.2.4 + CUDA 10.0 + cuDNN 7.4</span><br><span class="line"></span><br><span class="line">首先来看一下他们几个之间的关系</span><br><span class="line"></span><br><span class="line">![QQ20190104-165158@2x](http://puguojing-hexo.oss-cn-shanghai.aliyuncs.com/QQ20190104-165115%402x.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">在安装之前请查看一下自己的显卡是否支持CUDA。GTX 1060 1070 1080/1080i都支持，剩下的可以参考下面的网站查看：[CUDA显卡查询]()</span><br><span class="line"></span><br><span class="line">##### 1.安装CUDA</span><br><span class="line"></span><br><span class="line">这里是下载连接：</span><br><span class="line">[CUDA10.0下载连接](https://developer.nvidia.com/cuda-downloads?target_os=Windows&amp;target_arch=x86_64&amp;target_version=10&amp;target_type=exelocal) </span><br><span class="line"></span><br><span class="line">![WX20190110-173234@2x](media/15465901117286/WX20190110-173234@2x.png)</span><br><span class="line"></span><br><span class="line">[CUDA9.0下载链接](https://developer.nvidia.com/cuda-90-download-archive?target_os=Windows&amp;target_arch=x86_64&amp;target_version=10&amp;target_type=exelocal)</span><br><span class="line"></span><br><span class="line">![WX20190110-173122@2x](media/15465901117286/WX20190110-173122@2x.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">下载完成后尽量以管理员模式运行安装。</span><br><span class="line"></span><br><span class="line">他会提示你选安装方式是精简还是自定义。这里你可以直接选精简，如果你选择自定义，可以勾选掉visualstudio组件的部分，如果你没有使用visualstudio的IDE的话。</span><br><span class="line"></span><br><span class="line">安装完成后，你可以在[此电脑]-&gt;[鼠标右键]-&gt;[属性]-&gt;[高级]-&gt;[环境变量]-&gt;[系统环境变量]中看到2个关于CUDA_PATH的环境变量设置，说明你安装成功。</span><br><span class="line"></span><br><span class="line">##### 2.安装cuDNN</span><br><span class="line"></span><br><span class="line">cuDNN的安装需要你先注册一个账户登录，然后才让你下载，安装时注意，请安装对应的CUDA版本的cuDNN版本，</span><br><span class="line"></span><br><span class="line">[cuDNN for CUDA下载链接](https://developer.nvidia.com/cudnn) </span><br><span class="line"></span><br><span class="line">注册完成下载时里面会有：</span><br><span class="line">![A985FE99-7CDB-4b53-88A0-B6DD8BD5A6A7](media/15465901117286/A985FE99-7CDB-4b53-88A0-B6DD8BD5A6A7.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">下载完成后他是一个压缩包，解压出来是一个cuda文件夹，里面有bin、lib、include等文件夹及一些.DDL文件，你可以把它放到任意地方（甚至和CUDA的安装路径放在一起），只要你配置的环境变量能引用到他。这里我们参考建议做法，把它放到C:\Program Files盘里面,路径为：C:\Program Files\cuda   下面我们来配置cuDNN的环境变量。</span><br><span class="line"></span><br><span class="line">![](http://puguojing-hexo.oss-cn-shanghai.aliyuncs.com/NZMTTP%259%7B%244ZV%29%40I86AXVHV.png)</span><br><span class="line"></span><br><span class="line">最主要的是要把cuDNN中的bin中的 XXXX.DLL文件能够通过系统环境变量Path中找到</span><br><span class="line">下面是环境变量的内容在系统环境变量的Path中添加：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">网上有一些复杂的多个环境变量配置，你不需要参考他们，我也不清楚他们为什么会把环境变量配置的那么复杂，你可看看tensorflow官网的介绍：https://tensorflow.google.cn/install/gpu</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">###### 3.安装tensorflow-gpu</span><br><span class="line">直接通过pip安装：</span><br></pre></td></tr></table></figure></p>
+<p>pip install tensorflow-gpu<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如果是10.0的话记得使用上面我提供的whl安装包安装。</span><br><span class="line"></span><br><span class="line">###### 4.安装keras</span><br></pre></td></tr></table></figure></p>
+<p>pip install keras<br><code>`</code></p>
+<p>安装好之后Keras会自动使用tensorflow的GPU版本，不需要其他配置。</p>
+<p>重新运行你的程序你会发现，已经使用了GPU的版本并且会显示你的显卡型号、大小等信息。</p>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://puguojing-hexo.oss-cn-shanghai.aliyuncs.com/reward-wepay.jpg"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="https://puguojing-hexo.oss-cn-shanghai.aliyuncs.com/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">谢谢你的赞赏</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2018/12/12/Python读取大文件的注意事项/" class="next-post btn btn-default" title="Python读取大文件的注意事项">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Python读取大文件的注意事项</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'nRczxBYhHdsdxxz5Xanbp1Me-gzGzoHsz',
+            appKey: '8yPer27HUdgsdNqfDBiMuUyo',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#介绍"><span class="toc-text">介绍</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
