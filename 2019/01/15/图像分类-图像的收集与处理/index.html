@@ -31,7 +31,7 @@
     <!--Title-->
 
 
-<title>图像分类-图像的收集与处理 | 心小天个人博客</title>
+<title>心小天个人博客</title>
 
 
     <link rel="alternate" href="/atom.xml" title="心小天个人博客" type="application/atom+xml">
@@ -136,9 +136,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="图像分类-图像的收集与处理">
+        <h1 id="">
             
-	            图像分类-图像的收集与处理
+	            NO Title!
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        <a href="/categories/深度学习">
-            深度学习
+        <a href="/categories/ ">
+             
         </a>
     </span>
     
@@ -157,10 +157,6 @@
         <i class="fa fa-tags"></i>
         <span class="tags-meta">
             
-                
-                    <a href="/tags/深度学习" title="深度学习">
-                        深度学习
-                    </a>
                 
             
         </span>
@@ -182,7 +178,15 @@
     </div>
     
     <div class="post-body post-content">
-        <p>####1.图像的收集与标注<br>图像的标注可以使用文件名标注对应的名称分类和y_labe值。<br>将统图片放入文件夹，参考猫狗大战图片标记方式：</p>
+        <hr>
+<p>title: 图像分类-图像的收集与处理<br>categories:</p>
+<ul>
+<li>技术</li>
+<li>深度学习<br>tags:</li>
+<li>深度学习</li>
+</ul>
+<p>comments: true<br>date: 2019-01-15 19:11:56<br>img:<br>—s</p>
+<p>####1.图像的收集与标注<br>图像的标注可以使用文件名标注对应的名称分类和y_labe值。<br>将统图片放入文件夹，参考猫狗大战图片标记方式：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">def get_file(dir):</span><br><span class="line">    images = []</span><br><span class="line">    temp =[]</span><br><span class="line"></span><br><span class="line">    for root ,sub_folders,files in os.walk(dir):</span><br><span class="line">        for name in files:</span><br><span class="line">            images.append(os.path.join(root,name))</span><br><span class="line"></span><br><span class="line">        for name in sub_folders:</span><br><span class="line">            temp.append(os.path.join(root,name))</span><br><span class="line"></span><br><span class="line">        print(files)</span><br><span class="line"></span><br><span class="line">    lables=[]</span><br><span class="line"></span><br><span class="line">    for one_folder in temp:</span><br><span class="line">        n_img  = len(os.listdir(one_folder))</span><br><span class="line">        letter = one_folder.split((&apos;/&apos;))[-1]</span><br><span class="line"></span><br><span class="line">        if  letter ==&apos;cat&apos;:</span><br><span class="line">            lables = np.append(lables,n_img*[0])</span><br><span class="line">        else:</span><br><span class="line">            lables = np.append(lables, n_img * [1])</span><br></pre></td></tr></table></figure>
 <h4 id="2-图像的加工与处理"><a href="#2-图像的加工与处理" class="headerlink" title="2.图像的加工与处理"></a>2.图像的加工与处理</h4><p>一般网络模型的输入数据大小都是固定，比如224x224，229x229等,但是我们获取到的图片往往大小不一样，所以需要进行处理。方式一：不管原图大小比例，直接压缩到224x224；方式二：进行图片剪切。</p>
 <h5 id="（1）图片压缩"><a href="#（1）图片压缩" class="headerlink" title="（1）图片压缩"></a>（1）图片压缩</h5><p>（1）使用opencv对图片压缩：</p>
@@ -227,6 +231,11 @@
 </article>
 
 <div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/01/15/Resnet残差网络模型-keras模型代码实现/" class="pre-post btn btn-default" title="Resnet残差网络模型-keras模型代码实现">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">Resnet残差网络模型-keras模型代码实现</span>
+        </a>
     
     
         <a href="/2019/01/07/安装配置TensorFlow的GPU版本/" class="next-post btn btn-default" title="安装配置TensorFlow的GPU版本">
