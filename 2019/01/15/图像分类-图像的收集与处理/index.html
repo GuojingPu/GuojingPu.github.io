@@ -1,0 +1,354 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="心小天个人博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://puguojing.com">
+    <!--SEO-->
+
+<meta name="description" content="生活不止coding,还有诗和远方。">
+
+
+
+<meta name="keywords" content="心小天">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>图像分类-图像的收集与处理 | 心小天个人博客</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="心小天个人博客" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="心小天">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://puguojing.com">心小天个人博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/技术"><i class="fa "></i>技术</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/随笔"><i class="fa "></i>随笔</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="图像分类-图像的收集与处理">
+            
+	            图像分类-图像的收集与处理
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/深度学习">
+            深度学习
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/深度学习" title="深度学习">
+                        深度学习
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/01/15</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>####1.图像的收集与标注<br>图像的标注可以使用文件名标注对应的名称分类和y_labe值。<br>将统图片放入文件夹，参考猫狗大战图片标记方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">def get_file(dir):</span><br><span class="line">    images = []</span><br><span class="line">    temp =[]</span><br><span class="line"></span><br><span class="line">    for root ,sub_folders,files in os.walk(dir):</span><br><span class="line">        for name in files:</span><br><span class="line">            images.append(os.path.join(root,name))</span><br><span class="line"></span><br><span class="line">        for name in sub_folders:</span><br><span class="line">            temp.append(os.path.join(root,name))</span><br><span class="line"></span><br><span class="line">        print(files)</span><br><span class="line"></span><br><span class="line">    lables=[]</span><br><span class="line"></span><br><span class="line">    for one_folder in temp:</span><br><span class="line">        n_img  = len(os.listdir(one_folder))</span><br><span class="line">        letter = one_folder.split((&apos;/&apos;))[-1]</span><br><span class="line"></span><br><span class="line">        if  letter ==&apos;cat&apos;:</span><br><span class="line">            lables = np.append(lables,n_img*[0])</span><br><span class="line">        else:</span><br><span class="line">            lables = np.append(lables, n_img * [1])</span><br></pre></td></tr></table></figure>
+<h4 id="2-图像的加工与处理"><a href="#2-图像的加工与处理" class="headerlink" title="2.图像的加工与处理"></a>2.图像的加工与处理</h4><p>一般网络模型的输入数据大小都是固定，比如224x224，229x229等,但是我们获取到的图片往往大小不一样，所以需要进行处理。方式一：不管原图大小比例，直接压缩到224x224；方式二：进行图片剪切。</p>
+<h5 id="（1）图片压缩"><a href="#（1）图片压缩" class="headerlink" title="（1）图片压缩"></a>（1）图片压缩</h5><p>（1）使用opencv对图片压缩：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">def  rebuild(path,dim=(227,227)):</span><br><span class="line">    img = cv2.imread(path)</span><br><span class="line"></span><br><span class="line">    img = cv2.resize(img,dim)</span><br><span class="line">    # cv2.imwrite(path,img)</span><br><span class="line"></span><br><span class="line">    show_img(img)</span><br></pre></td></tr></table></figure>
+<p>（2）使用keras的util工具包进行压缩，并处理成模型的输入数据格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from keras_preprocessing import image</span><br><span class="line">from keras.applications.imagenet_utils import preprocess_input</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def input_image_process(img_path,target_size=(224, 224)):</span><br><span class="line">    </span><br><span class="line">    img = image.load_img(img_path, target_size=target_size)#load_img使用的是PIL的resize接口将图像压缩到target_size</span><br><span class="line"></span><br><span class="line">    x = image.img_to_array(img)#将图像转成numpy array</span><br><span class="line">    print(&quot;x array:&quot;,x.shape,x)</span><br><span class="line">    x = np.expand_dims(x, axis=0)#数据维度更改，</span><br><span class="line">    print(&quot;expand_dims:&quot;,x.shape,x)</span><br><span class="line"></span><br><span class="line">    x = preprocess_input(x,mode=&apos;tf&apos;)#标准化处理，使用tf格式具体看源码</span><br><span class="line"></span><br><span class="line">    print(&quot;preprocess_input:&quot;,x.shape,x)</span><br><span class="line">    return x</span><br></pre></td></tr></table></figure>
+<h5 id="（2）图片截取"><a href="#（2）图片截取" class="headerlink" title="（2）图片截取"></a>（2）图片截取</h5><p>对图片进行剪切也是一种方式，但是建切实会造成图片信息丢失。但是可以采用剪切多张图片或者平移剪切的方式。<br>部分代码如下：<br>使用PIL对图片进行剪切</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">from PIL import Image,ImageDraw,ImageFont</span><br><span class="line"></span><br><span class="line">def draw_rectangle(img,size):</span><br><span class="line">“”“</span><br><span class="line">在图片指定的区域画一个方形框</span><br><span class="line">”“”</span><br><span class="line">    draw = ImageDraw.Draw(img)</span><br><span class="line">    draw.rectangle(size, fill=None, outline=&apos;#FF0000&apos;, width=5)</span><br><span class="line">    return img</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def crop_img(img_path,size=(0,0,500,500)):</span><br><span class="line">“”“</span><br><span class="line">按照宽或者高最大化在图像中间剪切一块正方形区域</span><br><span class="line">”“”</span><br><span class="line">    img = Image.open(img_path)</span><br><span class="line"></span><br><span class="line">    width,height  = img.size[0],img.size[1]</span><br><span class="line"></span><br><span class="line">    print(width,height)</span><br><span class="line">    if width &gt; height:</span><br><span class="line"></span><br><span class="line">        size = (int((width-height) / 2),0,height + int((width-height)/2),height)</span><br><span class="line"></span><br><span class="line">    else:</span><br><span class="line">        size = ( 0,int((height - width) / 2), width, width + int((height - width) / 2))</span><br><span class="line"></span><br><span class="line">    print(size)</span><br><span class="line">    croped_img = img.crop(size)</span><br><span class="line">    return croped_img</span><br></pre></td></tr></table></figure>
+<p>下面附一个显示plt显示图片的代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from matplotlib import pyplot as plt</span><br><span class="line">def show_img(img,title=&apos;&apos;):</span><br><span class="line">    plt.figure(num=1, figsize=(8, 5), )</span><br><span class="line">    plt.title(title)</span><br><span class="line">    plt.axis(&apos;off&apos;)  # 不显示坐标轴</span><br><span class="line">    plt.imshow(img)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://puguojing-hexo.oss-cn-shanghai.aliyuncs.com/reward-wepay.jpg"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="https://puguojing-hexo.oss-cn-shanghai.aliyuncs.com/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">谢谢你的赞赏</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2019/01/07/安装配置TensorFlow的GPU版本/" class="next-post btn btn-default" title="安装配置TensorFlow的GPU版本">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">安装配置TensorFlow的GPU版本</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'nRczxBYhHdsdxxz5Xanbp1Me-gzGzoHsz',
+            appKey: '8yPer27HUdgsdNqfDBiMuUyo',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-图像的加工与处理"><span class="toc-text">2.图像的加工与处理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#（1）图片压缩"><span class="toc-text">（1）图片压缩</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#（2）图片截取"><span class="toc-text">（2）图片截取</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
