@@ -31,7 +31,7 @@
     <!--Title-->
 
 
-<title>随笔 | 蒲国敬个人博客</title>
+<title>django数据库查询related_name和related_query_name | 蒲国敬个人博客</title>
 
 
     <link rel="alternate" href="/atom.xml" title="蒲国敬个人博客" type="application/atom+xml">
@@ -136,9 +136,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="随笔">
+        <h1 id="django数据库查询related_name和related_query_name">
             
-	            随笔
+	            django数据库查询related_name和related_query_name
             
         </h1>
         <div class="post-meta">
@@ -146,8 +146,8 @@
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        <a href="/categories/随笔">
-            随笔
+        <a href="/categories/数据库">
+            数据库
         </a>
     </span>
     
@@ -158,6 +158,10 @@
         <span class="tags-meta">
             
                 
+                    <a href="/tags/Django" title="Django">
+                        Django
+                    </a>
+                
             
         </span>
     </span>
@@ -167,7 +171,7 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2018/11/06</span>
+            <span class="date-meta">2019/03/09</span>
         </span>
         
     
@@ -178,8 +182,23 @@
     </div>
     
     <div class="post-body post-content">
-         <font color="#e67e22">正如你所看到的这里并没有什么内容… </font>
-
+        <h3 id="related-name和related-query-name："><a href="#related-name和related-query-name：" class="headerlink" title="related_name和related_query_name："></a>related_name和related_query_name：</h3><p>有如下模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class User(models.Model):</span><br><span class="line">    username = models.CharField(max_length=20)</span><br><span class="line">    password = models.CharField(max_length=100)</span><br><span class="line"></span><br><span class="line">class Article(models.Model):</span><br><span class="line">    title = models.CharField(max_length=100)</span><br><span class="line">    content = models.TextField()</span><br><span class="line">    author = models.ForeignKey(&quot;User&quot;,on_delete=models.CASCADE)</span><br></pre></td></tr></table></figure>
+<h5 id="related-name："><a href="#related-name：" class="headerlink" title="related_name："></a>related_name：</h5><p>还是以User和Article为例来进行说明。如果一个article想要访问对应的作者，那么可以通过author来进行访问。但是如果有一个user对象，想要通过这个user对象获取所有的文章，该如何做呢？这时候可以通过user.article_set来访问，这个名字的规律是模型名字小写_set。示例代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user = User.objects.get(name=&apos;张三&apos;)</span><br><span class="line">user.article_set.all()</span><br></pre></td></tr></table></figure>
+<p>如果不想使用模型名字小写_set的方式，想要使用其他的名字，那么可以在定义模型的时候指定related_name。示例代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Article(models.Model):</span><br><span class="line">    title = models.CharField(max_length=100)</span><br><span class="line">    content = models.TextField()</span><br><span class="line">    # 传递related_name参数，以后在方向引用的时候使用articles进行访问</span><br><span class="line">    author = models.ForeignKey(&quot;User&quot;,on_delete=models.SET_NULL,null=True,related_name=&apos;articles&apos;)</span><br></pre></td></tr></table></figure>
+<p>以后在方向引用的时候。使用articles可以访问到这个作者的文章模型。示例代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">user = User.objects.get(name=&apos;张三&apos;)</span><br><span class="line">user.articles.all()</span><br><span class="line">如果不想使用反向引用，那么可以指定related_name=&apos;+&apos;。示例代码如下：</span><br><span class="line"></span><br><span class="line">class Article(models.Model):</span><br><span class="line">    title = models.CharField(max_length=100)</span><br><span class="line">    content = models.TextField()</span><br><span class="line">    # 传递related_name参数，以后在方向引用的时候使用articles进行访问</span><br><span class="line">    author = models.ForeignKey(&quot;User&quot;,on_delete=models.SET_NULL,null=True,related_name=&apos;+&apos;)</span><br></pre></td></tr></table></figure>
+<p>以后将不能通过user.article_set来访问文章模型了。</p>
+<p>####related_query_name：<br>在查找数据的时候，可以使用filter进行过滤。使用filter过滤的时候，不仅仅可以指定本模型上的某个属性要满足什么条件，还可以指定相关联的模型满足什么属性。比如现在想要获取写过标题为abc的所有用户，那么可以这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">users = User.objects.filter(article__title=&apos;abc&apos;)</span><br></pre></td></tr></table></figure>
+<p>如果你设置了related_name为articles，因为反转的过滤器的名字将使用related_name的名字，那么上例代码将改成如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">users = User.objects.filter(articles__title=&apos;abc&apos;)</span><br></pre></td></tr></table></figure>
+<p>可以通过related_query_name将查询的反转名字修改成其他的名字。比如article。示例代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Article(models.Model):</span><br><span class="line">    title = models.CharField(max_length=100)</span><br><span class="line">    content = models.TextField()</span><br><span class="line">    # 传递related_name参数，以后在方向引用的时候使用articles进行访问</span><br><span class="line">    author = models.ForeignKey(&quot;User&quot;,on_delete=models.SET_NULL,null=True,related_name=&apos;articles&apos;,related_query_name=&apos;article&apos;)</span><br></pre></td></tr></table></figure>
+<p>那么在做反向过滤查找的时候就可以使用以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">users = User.objects.filter(article__title=&apos;abc&apos;)</span><br></pre></td></tr></table></figure>
 
     </div>
     
@@ -215,15 +234,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/11/06/celery(1)解决运行task任务时worker报错/" class="pre-post btn btn-default" title="celery执行任务报错，有可能是你的版本不对">
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">celery执行任务报错，有可能是你的版本不对</span>
-        </a>
     
-    
-        <a href="/2018/10/16/Redis数据库的数据类型及操作/" class="next-post btn btn-default" title="Mac下Redis数据的安装、操作、配置">
+        <a href="/2019/02/27/Nginx配置/" class="next-post btn btn-default" title="Nginx配置">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">Mac下Redis数据的安装、操作、配置</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">Nginx配置</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -266,7 +280,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#related-name和related-query-name："><span class="toc-text">related_name和related_query_name：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#related-name："><span class="toc-text">related_name：</span></a></li></ol></li></ol>
         
     </div>
 </aside>
