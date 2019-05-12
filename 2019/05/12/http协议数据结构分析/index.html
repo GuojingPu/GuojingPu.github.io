@@ -1,0 +1,390 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="蒲国敬个人博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://puguojing.com">
+    <!--SEO-->
+
+<meta name="description" content="生活不止coding,还有诗和远方。">
+
+
+
+<meta name="keywords" content="蒲国敬">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>http协议数据结构分析 | 蒲国敬个人博客</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="蒲国敬个人博客" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="蒲国敬">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://puguojing.com">蒲国敬个人博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/技术"><i class="fa "></i>技术</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/随笔"><i class="fa "></i>随笔</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="http协议数据结构分析">
+            
+	            http协议数据结构分析
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/技术">
+            技术
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/HTTP" title="HTTP">
+                        HTTP
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/05/12</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="HTTP协议数据结构分析"><a href="#HTTP协议数据结构分析" class="headerlink" title="HTTP协议数据结构分析"></a>HTTP协议数据结构分析</h3><p>一：网络协议HHTP</p>
+<p>　　超文本传输协议</p>
+<p>　　RFC2616</p>
+<p>二：HTTP报文主要结构</p>
+<p>　　1)Request</p>
+<p>　　　　Method(get,post) —请求方式</p>
+<p>　　　　URL——-请求地址</p>
+<p>　　　　Header——请求头</p>
+<p>　　　　Body——–请求体</p>
+<p>　　2)Response</p>
+<p>　　　　Status Code——-状态码</p>
+<p>　　　　Header——–响应头</p>
+<p>　　　　Body——–响应体</p>
+<p>三：HTTP状态码</p>
+<p>　　200：成功，这个成功只是表示服务器正常处理完成了，并不能表示逻辑的正确性</p>
+<p>　　301，320：跳转，一般可以在header中看到location，即跳转地址，区别是一个是临时跳转一个是固定跳转</p>
+<p>　　304：未修改，服务器发现资源文件标识未变动，通知客户端读取本地缓存文件即可</p>
+<p>　　400：客户端请求信息格式问题</p>
+<p>　　403：一般是禁止访问，比如文件，目录等存在，但做了访问限制</p>
+<p>　　404：一般为文件，目录不存在，但也可以将其他情况伪装成为不存在</p>
+<p>　　500：出现这个一般都是服务端的代码直接抛出异常导致</p>
+<p>　　502，503，504：这个类似，在网络异常等情况下都可以出现，也有很多代码抛出错误时候出现</p>
+<p>四：HTTP常规Header信息与作用（Request）</p>
+<p>　　Host：必须存在，域名指定（类似与分类，但端口用于区分访问那个域名）</p>
+<p>　　Accept：表示自身可接受的信息类容，类似建议，有子项</p>
+<p>　　User-Agent：客户端标识信息（系统版本，浏览器，内核等）</p>
+<p>　　Cookie：特殊的信息存储位置，用于自动交互，无需代码干涉</p>
+<p>　　Referer：来源，即通过什么页面或文件触发的请求，如果是浏览器地址栏回车则没有该值</p>
+<p>　　Connection：控制长短链接，告诉对方当前链接状态（Keep-Alive，Close）</p>
+<p>　　Range：指定返回信息范围（断点持续子类使用）</p>
+<p>　　Content-Type：请求正文的类型，编码等信息</p>
+<p>　　Content-Length：请求正文长度</p>
+<p>　　If-Modifiled-Since：缓存相关，本地文件的标识有效期</p>
+<p>　　If-None-Match：缓存相关，本地文件的特征码，对应返回信息中的ETag</p>
+<p>五：HTTP常规Header信息与作用（Reaponse）</p>
+<p>　　Date：时间，一般是服务器当前时间</p>
+<p>　　Content-Encoding：返回正文的压缩编码类型</p>
+<p>　　Content-Length：返回正文的长度</p>
+<p>　　Content-Type：返回正文的类型，编码等信息</p>
+<p>　　Cache-Control：缓存机制以及策略，时间，方式等</p>
+<p>　　Etag：返回文件信息的特征码</p>
+<p>　　Expires：返回文件信息的缓存有限期</p>
+<p>　　Set-Cookie：要求设置的Cookie，可以多次出现的头信息</p>
+<p>　　Location：自动重定向到其他新的地址，一般状态301，302时会出现</p>
+<p>　　Connection：控制长短链接，告诉对方当前链接状态，默认Keep，当双方都为Keep时则链接会在下次沿用</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">General:</span><br><span class="line">Request URL: https://www.runoob.com/wp-content/themes/runoob/assets/images/qrcode.png</span><br><span class="line">Request Method: GET</span><br><span class="line">Status Code: 200 OK (from memory cache)</span><br><span class="line">Remote Address: 211.138.124.224:443</span><br><span class="line">Referrer Policy: no-referrer-when-downgrade</span><br><span class="line"></span><br><span class="line">Resoponse-Headers:</span><br><span class="line">Accept-Ranges: bytes</span><br><span class="line">Age: 33743</span><br><span class="line">Ali-Swift-Global-Savetime: 1556273201</span><br><span class="line">Cache-Control: max-age=86400</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 12595</span><br><span class="line">Content-Type: image/png</span><br><span class="line">Date: Sat, 11 May 2019 17:08:02 GMT</span><br><span class="line">EagleId: d38a7cce15576282256397552e</span><br><span class="line">Etag: &quot;59f41d3a-3133&quot;</span><br><span class="line">Expires: Sat, 11 May 2019 10:41:15 GMT</span><br><span class="line">Last-Modified: Sat, 28 Oct 2017 06:01:30 GMT</span><br><span class="line">Server: Tengine</span><br><span class="line">Timing-Allow-Origin: *</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">Via: cache1.l2cm9[111,304-0,C], cache46.l2cm9[113,0], cache6.cn456[0,200-0,H], cache6.cn456[1,0]</span><br><span class="line">X-Cache: HIT TCP_MEM_HIT dirn:5:87260959</span><br><span class="line">X-M-Log: QNM:xs1167;QNM3</span><br><span class="line">X-M-Reqid: byYAAFmhB_Xtr50V</span><br><span class="line">X-Qnm-Cache: Hit</span><br><span class="line">X-Swift-CacheTime: 86400</span><br><span class="line">X-Swift-SaveTime: Sat, 11 May 2019 17:08:02 GMT</span><br><span class="line"></span><br><span class="line">Request-Headers:</span><br><span class="line">Provisional headers are shown</span><br><span class="line">Referer: https://www.runoob.com/html/html-tutorial.html</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537</span><br></pre></td></tr></table></figure>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://puguojing-hexo.oss-cn-shanghai.aliyuncs.com/reward-wepay.jpg"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="https://puguojing-hexo.oss-cn-shanghai.aliyuncs.com/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">谢谢你的赞赏</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2019/03/24/时间过得很快/" class="next-post btn btn-default" title="时间过得很快">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">时间过得很快</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'nRczxBYhHdsdxxz5Xanbp1Me-gzGzoHsz',
+            appKey: '8yPer27HUdgsdNqfDBiMuUyo',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP协议数据结构分析"><span class="toc-text">HTTP协议数据结构分析</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
