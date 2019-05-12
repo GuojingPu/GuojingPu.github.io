@@ -182,8 +182,7 @@
     </div>
     
     <div class="post-body post-content">
-        <p>【转】<a href="https://www.cnblogs.com/chenqf/p/6386163.html" target="_blank" rel="noopener">https://www.cnblogs.com/chenqf/p/6386163.html</a></p>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>Http 缓存机制作为 web 性能优化的重要手段，对于从事 Web 开发的同学们来说，应该是知识体系库中的一个基础环节，同时对于有志成为前端架构师的同学来说是必备的知识技能。<br>但是对于很多前端同学来说，仅仅只是知道浏览器会对请求的静态文件进行缓存，但是为什么被缓存，缓存是怎样生效的，却并不是很清楚。<br>在此，我会尝试用简单明了的文字，像大家系统的介绍HTTP缓存机制，期望对各位正确的理解前端缓存有所帮助。</p>
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>Http 缓存机制作为 web 性能优化的重要手段，对于从事 Web 开发的同学们来说，应该是知识体系库中的一个基础环节，同时对于有志成为前端架构师的同学来说是必备的知识技能。<br>但是对于很多前端同学来说，仅仅只是知道浏览器会对请求的静态文件进行缓存，但是为什么被缓存，缓存是怎样生效的，却并不是很清楚。<br>在此，我会尝试用简单明了的文字，像大家系统的介绍HTTP缓存机制，期望对各位正确的理解前端缓存有所帮助。</p>
 <h4 id="在介绍HTTP缓存之前，作为知识铺垫，先简单介绍一下HTTP报文"><a href="#在介绍HTTP缓存之前，作为知识铺垫，先简单介绍一下HTTP报文" class="headerlink" title="在介绍HTTP缓存之前，作为知识铺垫，先简单介绍一下HTTP报文"></a>在介绍HTTP缓存之前，作为知识铺垫，先简单介绍一下HTTP报文</h4><p>HTTP报文就是浏览器和服务器间通信时发送及响应的数据块。<br>浏览器向服务器请求数据，发送请求(request)报文；服务器向浏览器返回数据，返回响应(response)报文。<br>报文信息主要分为两部分<br>1.包含属性的首部(header)————————–附加信息（cookie，缓存信息等）与缓存相关的规则信息，<strong>均包含在header中</strong><br>2.包含数据的主体部分(body)———————–HTTP请求真正想要传输的部分</p>
 <h4 id="缓存规则解析"><a href="#缓存规则解析" class="headerlink" title="缓存规则解析"></a>缓存规则解析</h4><p>为方便大家理解，我们认为浏览器存在一个缓存数据库,用于存储缓存信息。<br>在客户端第一次请求数据时，此时缓存数据库中没有对应的缓存数据，需要请求服务器，服务器返回后，将数据存储至缓存数据库中。</p>
 <p><img src="http://puguojing-hexo.oss-cn-shanghai.aliyuncs.com/632130-20170210141639213-1923993391.png" alt=""></p>
@@ -215,6 +214,7 @@
 <p>####总结<br><strong>对于强制缓存，服务器通知浏览器一个缓存时间，在缓存时间内，下次请求，直接用缓存，不在时间内，执行比较缓存策略。<br>对于比较缓存，将缓存信息中的Etag和Last-Modified通过请求发送给服务器，由服务器校验，返回304状态码时，浏览器直接使用缓存。</strong></p>
 <h4 id="浏览器第一次请求："><a href="#浏览器第一次请求：" class="headerlink" title="浏览器第一次请求："></a>浏览器第一次请求：</h4><p><img src="http://puguojing-hexo.oss-cn-shanghai.aliyuncs.com/632130-20170210142134291-1976923079.png" alt=""></p>
 <h5 id="浏览器再次请求时："><a href="#浏览器再次请求时：" class="headerlink" title="浏览器再次请求时："></a>浏览器再次请求时：</h5><p><img src="http://puguojing-hexo.oss-cn-shanghai.aliyuncs.com/632130-20170210141453338-1263276228.png" alt=""></p>
+<p>【转】<a href="https://www.cnblogs.com/chenqf/p/6386163.html" target="_blank" rel="noopener">https://www.cnblogs.com/chenqf/p/6386163.html</a></p>
 
     </div>
     
